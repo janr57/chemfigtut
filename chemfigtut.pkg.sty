@@ -1,0 +1,118 @@
+% chemfigtut.pkg.sty
+% Paquetes y configuración
+
+% Copyright (C) 2022--2026 José A. Navarro Ramón <janr.devel@gmail.com>
+% Licencia del código: GPLv2
+% Licencia fichero generado (pdf):
+% Creative Commons Recognition Non-Comercial Share-alike. (CC-BY-NC-SA).
+%
+% -----------------------------------------------------------------------------
+% ACTIVACIÓN DE FUENTES
+\RequirePackage{fontspec}
+% -----------------------------------------------------------------------------
+% MATEMÁTICAS
+\RequirePackage{amsmath}
+\RequirePackage{amsfonts}
+\RequirePackage{amssymb}
+% -----------------------------------------------------------------------------
+\RequirePackage[math-style=TeX]{unicode-math}
+\defaultfontfeatures{Ligatures=TeX}
+\RequirePackage{lualatex-math}
+% -----------------------------------------------------------------------------
+% IDIOMAS
+\RequirePackage{polyglossia}
+\setmainlanguage{spanish}
+% Forzar en Polyglossia: "Tabla" en lugar de "Cuadro" en tablas
+\gappto\captionsspanish{%
+  \renewcommand{\tablename}{Tabla}
+  \renewcommand{\listtablename}{Índice de tablas}
+}
+% -----------------------------------------------------------------------------
+% FUENTES
+% Libertinus XITS, calibri, etc.
+\RequirePackage{libertinus-otf}
+% \setmainfont{Libertinus Serif}
+% \setmathfont{Libertinus Math}
+% \setsansfont{Libertinus Sans}
+%\setmonofont{Libertinus Mono}
+% Para Source Code Pro, consulta configuración en el fichero .defs:
+\setmonofont{SourceCode Pro}[%
+Scale=MatchLowercase,
+UprightFont=* Regular,
+ItalicFont=* Italic,
+% Mapeamos el "Bold" al grosor intermedio SemiBold para evitar exceso de grosor:
+BoldFont=* SemiBold,
+BoldItalicFont=* SemiBold Italic,
+% Mapeamos el "Medium" por si interesa un paso intermedio sin color:
+FontFace={m}{n}{* Medium}
+]
+% -----------------------------------------------------------------------------
+% NO INDENTA PRIMERA LÍNEA DE PÁRRAFOS Y AÑADE ESPACIADO ENTRE ELLOS
+\RequirePackage{parskip}
+% -----------------------------------------------------------------------------
+% CABECERAS
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+% -----------------------------------------------------------------------------
+% TABLAS
+\RequirePackage{longtable}
+% -----------------------------------------------------------------------------
+% CAPTION
+\RequirePackage[justification=raggedright, singlelinecheck=false]{caption}
+% -----------------------------------------------------------------------------
+% LISTINGS
+\RequirePackage{listings}
+\lstset{%
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  columns=fullflexible
+}
+% -----------------------------------------------------------------------------
+% UNIDADES
+\RequirePackage{siunitx}
+\sisetup{per-mode=power}
+\sisetup{exponent-product=\cdot}
+\sisetup{output-decimal-marker={,}}
+\sisetup{retain-explicit-plus}
+\DeclareSIUnit\cv{CV}
+% -----------------------------------------------------------------------------
+% QUÍMICA
+% mhchem
+\RequirePackage[version=4]{mhchem}
+% \RequirePackage[version=4,arrows=pgf]{mhchem}
+% \RequirePackage[version=4,arrows=pgf-filled]{mhchem}
+\mhchemoptions{minus-text-sidebearing-left=0.10em, minus-text-sidebearing-right=0.16em}
+\mhchemoptions{minus-math-sidebearing-left=0.06em, minus-text-sidebearing-right=0.11em}
+% .............................................................................
+% chemfig
+\RequirePackage{chemfig}
+% -----------------------------------------------------------------------------
+% GRÁFICOS
+\RequirePackage{graphicx}
+\RequirePackage{xcolor}
+\RequirePackage{luacolor}
+\RequirePackage{fancyvrb-ex}
+% .............................................................................
+\RequirePackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{bending}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{fit}
+\usetikzlibrary{calc}
+\usetikzlibrary{angles}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes}
+\usetikzlibrary{snakes}
+
+
+
+
+
+
+
+%%% Local Variables:
+%%% coding: utf-8
+%%% mode: latex
+%%% TeX-engine: luatex
+%%% TeX-master: "chemfigtut.tex"
+%%% End:
