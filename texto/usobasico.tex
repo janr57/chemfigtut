@@ -2702,6 +2702,127 @@ utilizan para generar el efecto deseado.
 
 
 
+\section{La macro \texttt{charge}}
+Vamos a describir este comando que se utiliza para incluir en los átomos de las fórmulas,
+determinados elementos, como cargas, electrones sin compartir, y otros.
+
+Empezaremos describiendo el comando en general:
+\begin{center}
+  {\small
+    \texttt{\textbackslash charge{[<parámetros generales>]<posición>[<código tikz>]=<carga>}{<átomo>}}
+  }
+\end{center}
+
+Descripción de las diferentes parámetros:
+\begin{itemize}
+\item \texttt{<átomo>}: En general, suelen ser de cero a dos letras, que representa un
+  átomo concreto, o alguno genérico.
+
+\item \texttt{<carga>}: Cualquier elemento arbitrario que rodea a los átomos, con pocas
+  restricciones. Puede ser un texto, incluso en modo matemático, código \textsf{TikZ}, o
+  incluso una molécula \texttt{\textbackslash chemconfig}.
+
+\item \texttt{<parámetros opcionales>}: Pares \emph{clave}/\emph{valor} que que usarán
+  al utilizar esa macro.
+
+\item \texttt{<posición>}: Valores \texttt{ángulo:<desplazamiento>}, donde
+  \texttt{desplazamiento} es opcional, su valor por defecto es \texttt{0pt}.
+
+\item \texttt{<código tikz>}: Código que se aplica a la \emph{carga}.
+\end{itemize}
+
+El \texttt{ángulo} indica la posición de la carga respecto de la caja. Se puede
+expresar en grados o como una posición respecto de la caja, al estilo de \textsf{TikZ},
+como "south east". El \texttt{desplazamiento} es una dimensión \TeX y representa la
+longitud adicional entre la caja del átomo y la carga, que a menos que se indique otra
+cosa en \texttt{código tikz}, sería el centro de la carga.
+
+
+\subsection{Parámetros}
+
+{\small
+\begin{center}
+  \begin{longtable}{rcl}\hline
+    \label{tbl:charge_claves}
+    \texttt{<clave>} & \texttt{Valor} & \texttt{Descripción}\\\hline
+    \texttt{\color{Blue}{debug}}
+    & \texttt{true}
+    & Booleano, que cuando es \texttt{true}, representa en\\&&
+      diferentes colores los elementos. En verde\\&&
+      los átomos; en azul, las cajas, y la carga en rojo\\
+    \texttt{\color{Blue}{macro atom}}
+    & \texttt{\textbackslash printatom}
+    & Macro que recibe el \texttt{<átomo>} como argumento\\
+    \texttt{\color{Blue}{circle}}
+    & \texttt{false}
+    & Cuando es \texttt{true}, la caja del átomo es circular;\\&&
+      en caso contrario es rectangular\\
+ \texttt{\color{Blue}{macro charge}}
+    & \texttt{<macro>}
+    & Macro, como \texttt{\textbackslash printatom} o \texttt{\textbackslash ensuremath},
+      \\&& que recibe cada carga como argumento\\
+    \texttt{\color{Blue}{extra sep}}
+    & \texttt{1.5pt}
+    & Incremento del tamaño del nodo del átomo, para\\&& después situar las cargas: es
+      el valor de \texttt{inner sep}\\&& que se pasa a \textsf{TikZ}\\
+ \texttt{\color{Blue}{overlay}}
+    & \texttt{true}
+    & Si vale \texttt{true}, las cargas se dibujan fuera de las cajas\\
+    \texttt{\color{Blue}{shortcuts}}
+    & \texttt{true}
+    & Si \texttt{true}, activa las abreviaturas "\texttt{\textbackslash.}", "\texttt{\textbackslash:,}", "\texttt{\textbackslash|}" y\\&& "\texttt{\textbackslash "}"
+      para dibujar estructuras de Lewis\\
+    \texttt{\color{Blue}{lewisautorot}}
+    & \texttt{true}
+    & Si \texttt{true}, rotan los "\texttt{\textbackslash|}", "\texttt{\textbackslash:}" y "\texttt{\textbackslash"}"\\
+    \texttt{\color{Blue}{.radius}}
+    & \texttt{0.15ex}
+    & Radio de los puntos "\texttt{\textbackslash.}" y "\texttt{\textbackslash:}"\\
+    \texttt{\color{Blue}{:sep}}
+    & \texttt{0.3em}
+    & Separación entre los dos puntos "\texttt{\textbackslash:}"\\
+    \texttt{\color{Blue}{.style}}
+    & \texttt{fill=black}
+    & Estilo \textsf{TikZ} para los puntos "\texttt{\textbackslash.}" y
+      "\texttt{\textbackslash:}"\\
+    \texttt{\color{Blue}{"length}}
+    & \texttt{1.5ex}
+    & Longitud del rectángulo "\texttt{\textbackslash}" y la línea
+      "\texttt{\textbackslash|}"\\
+    \texttt{\color{Blue}{"width}}
+    & \texttt{.3ex}
+    & Anchura del rectángulo "\texttt{\textbackslash"}"\\
+    \texttt{\color{Blue}{"style}}
+    & {\scriptsize black,line width=.4pt}
+    & Estilo \textsf{TikZ} para dibujar "\texttt{\textbackslash"}"\\
+    \texttt{\color{Blue}{|style}}
+    & {\scriptsize black,line width=.4pt}
+    & Estilo \textsf{TikZ} para dibujar la línea "\texttt{\textbackslash|}"\\
+    \hline
+    \caption{Tabla de claves de la macro \texttt{\backslash charge}.}
+  \end{longtable}
+\end{center}
+}
+
+
+\vspace{-5ex}
+Es posible fijar algunos de los valores anteriores mediante:
+\begin{center}
+  \texttt{\textbackslash setcharge\{<clave>=<valor>\}}
+\end{center}
+
+En cualquier momento se pueden restaurar los valores por defecto mediante
+\begin{center}
+  \texttt{\textbackslash resetcharge}
+\end{center}
+
+La macro \texttt{\textbackslash charge} coloca las cargas fuera de la caja, mientras
+que \texttt{\textbackslash Charge} las coloca dentro de ella.
+
+
+
+
+
 
 
 
