@@ -1256,6 +1256,138 @@ en rojo:
 \end{tabular}
 
 
+\section{Configuración de \textsf{chemfig} por defecto}
+A partir de ahora utilizaremos un sistema de valores por defecto para \textsf{chemfig}.
+Estos valores pueden variar según las preferencias del usuario. En todo caso, tómese
+como una propuesta.
+
+Esta configuración propone unas distancias interatómicas más cortas entre otras
+cosas. Es conveniente añadir estos valores u otros, según interese, en el preambulo del
+documento\footnotemark{}:
+\footnotetext{Para este documento no lo he puesto en el preámbulo porque hasta aquí he
+  preferido mostrar la configuración por defecto de \textsf{chemfig}; la añado en
+  este punto concreto del documento para que se aplique en adelante.}
+
+\texttt{%
+\noindent\textbackslash setchemfig\{\\
+\hspace*{2em}atom sep=2.0em, {\small\% Reduce la longitud de los enlaces}\\
+\hspace*{2em}bond offset=2pt, {\small\% Espacio entre el átomo y el inicio del enlace}\\
+\hspace*{2em}double bond sep=2.5pt, {\footnotesize\% Espacio entre líneas de un enlace múltiple}\\
+\hspace*{2em}bond spacing=3.0pt, {\small\% Espacio reservado para los enlaces múltiples}\\
+\hspace*{2em}cram size=3pt, {\footnotesize\% Ancho de la base de los enlaces de tipo Cram (cuñas)}\\
+\hspace*{2em}node style=\{scale=0.85\} {\small\% Escala las etiquetas de los átomos}\\
+\}}
+
+
+\setchemfig{
+  atom sep = 2.0em,       % Reduce la longitud de los enlaces (por defecto es 3.0em)
+  bond offset = 2pt,      % Espacio entre el átomo y el inicio del enlace
+  double bond sep = 2.5pt,% Espacio entre las dos líneas de un enlace doble
+  bond spacing = 3.0pt,   % Espacio entre los puntos de un par solitario (Lewis)
+  cram size = 3pt,        % Ancho de la base de los enlaces de tipo Cram (cuñas)
+  node style = {scale=0.85} % Escala ligeramente las etiquetas de los átomos
+}
+
+A partir de ahora se aplicarán los valores anteriores por defecto, a menos que se diga
+lo contrario.
+
+\section{Efecto del primer átomo en la línea base}
+El primer elemento, átomo o enlace que se dibuja en una fórmula define la línea base,
+que se indica en rojo.
+
+En este ejemplo, el átomo \ce{A} es el primero que aparece en el comando
+\texttt{\textbackslash chemfig} y, por tanto, define la línea base:
+
+\begin{tabular}{|l|}\hline
+  \vphantom{\rule{0.4pt}{2.5ex}}
+  \vphantom{\chemfig{A-B}}\hspace{-3em}\tikz \draw[help lines, red,] (0,0) -- (5em,0);
+  \chemfig{A-B}
+  \tikz \draw[help lines, red] (0,0) -- (5em,0);
+  \\[0.25ex]
+  \multicolumn{1}{|c|}{%
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\textbackslash chemfig\{\ttres{A}-B\}}
+  }
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+Cuando no se representa el átomo que define la línea base, se supone que es un punto
+invisible sin tamaño y su linea base es la misma que la del enlace que le sigue:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{2ex}}
+  \vphantom{\chemfig{-B}}\hspace{-2em}\tikz \draw[help lines, red] (0,0) -- (5em,0);
+  \chemfig{-B}
+  \tikz \draw[help lines, red] (0,0) -- (5em,0);
+  \\[0.25ex]
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\textbackslash chemfig\{\ttres{-}B\}}
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+En la siguiente fórmula hemos puesto \ce{A} como primer átomo:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{2.5ex}}
+  \vphantom{\chemfig{A-[7]B}}\hspace{-2em}\tikz \draw[help lines, red] (0,0) -- (5em,0);
+  \chemfig{A-[7]B}
+  \tikz \draw[help lines, red] (0,0) -- (5em,0);
+  \\[3.5ex]
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\textbackslash chemfig\{\ttres{A}-[7]B\}}
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+Ahora repetimos la misma fórmula, pero dibujamos primero \ce{B}:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{6ex}}
+  \vphantom{\chemfig{B-[3]A}}\hspace{-2em}\tikz \draw[help lines, red] (0,0) -- (5em,0);
+  \chemfig{B-[3]A}
+  \tikz \draw[help lines, red] (0,0) -- (5em,0);
+  \\[0.25ex]
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\textbackslash chemfig\{\ttres{B}-[3]A\}}
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+Hemos dicho que el primer átomo define la línea base, pero hay un parámetro que hace que
+se sitúe por encima o por debajo del átomo. El parámetro es \texttt{baseline=<dim>}.
+
+En el siguiente ejemplo, la línea base se sitúa $5pt$ por encima de la base del átomo:
+
+\begin{tabular}{|l|}\hline
+  \vphantom{\rule{0.4pt}{2ex}}
+  \vphantom{\chemfig{A-B}}\hspace{-2.5em}\tikz \draw[help lines, red,] (0,0) -- (5em,0);
+  \chemfig[baseline=5pt]{A-B}
+  \tikz \draw[help lines, red] (0,0) -- (5em,0);
+  \\[1.25ex]
+  \multicolumn{1}{|c|}{%
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\textbackslash chemfig[\ttres{baseline=5pt}]\{A-B\}}
+  }
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+Ahora se sitúa $5pt$ por debajo de la base del átomo:
+
+\begin{tabular}{|l|}\hline
+  \vphantom{\rule{0.4pt}{4ex}}
+  \vphantom{\chemfig{A-B}}\hspace{-2.5em}\tikz \draw[help lines, red,] (0,0) -- (5em,0);
+  \chemfig[baseline=-5pt]{A-B}
+  \tikz \draw[help lines, red] (0,0) -- (5em,0);
+  \\[1ex]
+  \multicolumn{1}{|c|}{%
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\textbackslash chemfig[\ttres{baseline=-5pt}]\{A-B\}}
+  }
+  \\\hline
+\end{tabular}
 
 
 
