@@ -6,7 +6,7 @@
 % (CC-BY-NC-SA)
 
 
-\chapter{Utilizando {\sf{chemfig}}}
+\chapter{Uso Básico}
 Este capítulo tiene los siguientes objetivos:
 \begin{enumerate}
 \item Aprender cómo cargar el paquete en Lua\LaTeX.
@@ -1256,7 +1256,7 @@ en rojo:
 \end{tabular}
 
 
-\section{Configuración de \textsf{chemfig} por defecto}
+\section{Configuración por defecto}
 A partir de ahora utilizaremos un sistema de valores por defecto para \textsf{chemfig}.
 Estos valores pueden variar según las preferencias del usuario. En todo caso, tómese
 como una propuesta.
@@ -1291,7 +1291,7 @@ documento\footnotemark{}:
 A partir de ahora se aplicarán los valores anteriores por defecto, a menos que se diga
 lo contrario.
 
-\section{Efecto del primer átomo en la línea base}
+\section{Línea base}
 El primer elemento, átomo o enlace que se dibuja en una fórmula define la línea base,
 que se indica en rojo.
 
@@ -1388,6 +1388,1321 @@ Ahora se sitúa $5pt$ por debajo de la base del átomo:
   }
   \\\hline
 \end{tabular}
+
+
+\section{Ramificaciones en cadenas abiertas}
+En los primeros ejemplos que siguen se han señalado en negrita los átomos de carbono
+que forman la cadena base (no necesariamente la cadena principal), igual que en el código
+se señalan las ramificaciones en rojo.
+
+\subsection{\emph{Isobutano} o metilpropano}
+Observa que las dos fórmulas tienen la misma altura porque utilizan la misma línea base, dado que utilizan el mismo átomo \ce{C} en primer lugar:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{7ex}}
+  \chemfig{\textbf{C}H_3-\textbf{C}H(-[2]CH_3)-\textbf{C}H_3}
+  & \chemfig{\textbf{C}H_3-CH(-[6]CH_3)-CH_3}\\
+  \texttt{\{CH\_3-CH\ttres{(-[2]CH\_3)}-CH\_3\}}
+  & \texttt{\{CH\_3-CH\ttres{(-[2]CH\_3)}-CH\_3\}}\\
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+A la izquierda, se ha comenzado por el grupo de átomos \ce{CH3} superior.
+A la derecha se ha comenzado por el \ce{CH3} más a la izquierda.
+Podemos comprobar que ambos grupos de átomos están a la misma altura (misma línea base):
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig{\textbf{C}H_3-[6]\textbf{C}H(-[4]CH_3)-\textbf{C}H_3}
+  & \chemfig{\textbf{C}H_3-\textbf{C}H(-[6]CH_3)-\textbf{C}H_3}\\
+  \texttt{\{CH\_3-[6]CH\ttres{(-[4]CH\_3)}-CH\_3\}}
+  & \texttt{\{CH\_3-CH\ttres{(-[6]CH\_3)}-CH\_3\}}\\
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Para completar la explicación, modificaremos la segunda fórmula del primer par de
+ejemplos del \emph{isobutano} para que la cadena principal se encuentre por encima
+de la línea base:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{7ex}}
+  \chemfig{\textbf{C}H_3-\textbf{C}H(-[2]CH_3)-\textbf{C}H_3}
+  & \chemfig{\textbf{C}H_3-[2]\textbf{C}H(-[4]CH_3)-\textbf{C}H_3}\\
+  \vphantom{\rule{0.4pt}{2.5ex}}
+  \texttt{\{CH\_3-CH\ttres{(-[2]CH\_3)}-CH\_3\}}
+  & \texttt{\{CH\_3-[2]CH\ttres{(-[4]CH\_3)}-CH\_3\}}\\
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Otras variantes del \emph{isopropano}:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig{CH_3-[7]CH(-[5]CH_3)-CH_3}
+  & \chemfig[bond join]{-[7](-[5])-}\\
+  \vphantom{\rule{0.4pt}{2.5ex}}
+  & \texttt{[bond join]}\\
+  \vphantom{\rule{0.4pt}{2.5ex}}
+  \texttt{\{CH\_3-[7]CH\ttres{(-[5]CH\_3)}-CH\_3\}}
+  & \texttt{\{-[7]\ttres{(-[5])}-\}}\\
+  \hline
+\end{tabular}
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig[bond join]{CH_3-[7](-[5]CH_3)-CH_3}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{[bond join]}\\
+  \texttt{\{-[7]CH\_3\ttres{(-[5]CH\_3)}-CH\_3\}}\\
+  \hline
+\end{tabular}
+
+\subsection{Ácido acético o etanoico}
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{7ex}}
+  \chemfig{CH_3-COOH}
+  & \chemfig{CH_3-C(=[1]O)-[7]OH}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{%
+  \{CH\_3-COOH\}
+  }
+  & \texttt{%
+    \{CH\_3-C\ttres{(=[1]O)}-[7]OH\}
+    }
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+Fórmula desarrollada:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{8ex}}
+  \chemfig{H-C(-[2]H)(-[6]H)-C(=[1]O)-[7]O-H}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{%
+  \{H-C\ttres{(-[2]H)}\ttres{(-[6]H)}-C\ttres{(=[1]O)}-[7]O-H\}
+  }
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+Fórmulas esquemáticas:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{8ex}}
+  \chemfig{-(=[1]O)-[7]OH}
+  & \chemfig{CH_3-(=[1]O)-[7]OH}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{%
+  \{-\ttres{(=[1]O)}-[7]OH\}
+  }
+  & \texttt{%
+    \{CH\_3-\ttres{(=[1]O)}-[7]OH\}
+    }
+  \\\hline
+\end{tabular}
+
+\subsection{Ejemplo de molécula rotada}
+A continuación, en lugar de ángulos abosolutos, reescribimos la fórmula desarrollada del
+ácido acético, utilizando ángulos relativos (excepto el primero). La cadena base que
+se utiliza es \ce{H-C-C-O-H}:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{7ex}}
+  \chemfig{H-[:0]C(-[::90]H)(-[::-90]H)-[::0]C(=[::45]O)-[::-45]O-[::45]H}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\small%
+  \{H-\ttres{[:0]}C(-[::90]H)(-[::-90]H)-[::0]C(=[::45]O)-[::-45]O-[::45]H\}
+  }
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+Para girar la molécula \qty{45}{\degree}, queremos que:
+\begin{center}
+  $\texttt{ángulo final}-\texttt{ángulo inicial}=\texttt{ángulo de giro}$
+\end{center}
+\[
+  x-0=45
+\]
+\[
+  x = 45 + 0 = \qty{45}{\degree}
+\]
+
+Así, modificamos el ángulo absoluto (el primero) \qty{45}{\degree}:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{13.5ex}}
+  \chemfig{H-[:45]C(-[::90]H)(-[::-90]H)-[::0]C(=[::45]O)(-[::-45]O(-[::45]H))}\\ \texttt{\small\{H-\ttres{[:45]}C(-[::90]H)(-[::-90]H)-[::0]C(=[::45]O)(-[::-45]O(-[::45]H))\}}\\
+  \hline
+\end{tabular}
+
+\subsection{Anhídrido acético}
+En el siguiente ejemplo, las longitudes de enlace quedan algo diferentes:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig{CH_3-CO-O-CO-CH_3}\\
+  \vphantom{\rule{0.4pt}{1ex}}
+  \texttt{%
+  \{CH\_3-CO-O-CO-CH\_3\}
+  }
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+Se puede arreglar mediante \texttt{atom sep} y \texttt{fixed length=true}:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig[atom sep=1em,fixed length]{CH_3-CO-O-CO-CH_3}\\
+  \vphantom{\rule{0.4pt}{1ex}}
+  \texttt{%
+  [atom sep=1em,fixed length]
+  }\\
+  \vphantom{\rule{0.4pt}{1ex}}
+  \texttt{%
+  \{CH\_3-CO-O-CO-CH\_3\}
+  }\\  
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Otras variantes:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{6ex}}
+  \chemfig{CH_3-C(=[1]O)-[7]O-[5]C(=[7]O)-[4]CH_3}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{%
+  \{CH\_3-C\ttres{(=[1]O)}-[7]O-[5]C\ttres{(=[7]O)}-[4]CH\_3\}
+  }
+  \\\hline
+\end{tabular}
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{7ex}}
+  \chemfig{H-C(-[2]H)(-[6]H)-C(=[1]O)-[7,2]O-[5,2]C(=[7]O)-[4]C(-[2]H)(-[6]H)-[4]H}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\footnotesize \{H-C\ttres{(-[2]H)(-[6]H)}-C\ttres{(=[1]O)}-[7,2]O-[5,2]C\ttres{(=[7]O)}-[4]C\ttres{(-[2]H)(-[6]H)}-[4]H\}
+  }
+  \\\hline
+\end{tabular}
+
+\subsection{Otras cadenas ramificadas}
+
+Aquí mostramos el 2-etil-3-isopropil-1,4-hexadieno:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{7ex}}
+  \chemfig[atom sep=1.1em,fixed length=true]  {CH_2=C(-[2]CH_2-CH_3)-CH(-[6]CH(-[6]CH_3)-CH_3)-CH=CH-CH_3}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{[atom sep=1.1em,\ttres{fixed length}]}\\ \texttt{\{CH\_2=C\ttres{(-[2]CH\_2-CH\_3)}-CH\ttres{(-[6]CH\ttresg{(-[6]CH\_3)}-CH\_3)}-CH=CH-CH\_3\}}
+  \\\hline
+\end{tabular}
+
+
+\subsection{Isomería geométrica \emph{cis-trans}}
+A continuación presentamos el $cis$-2-hexeno. Observa que \textsf{chemfig} considera que
+el radical etilo \ce{CH3CH2} (sin enlace \ce{C-C} explícito) es un \emph{átomo}; por
+ejemplo, podríamos sustituirlo por cualquier otro átomo, como el cloro, debido a que no
+se ha indicado el enlace entre los átomos de carbono del etilo:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig{CH_3CH_2-[7]C(-[5]H)=C(-[7]H)-[1]CH_2CH_3}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\{CH\_3CH\_2-[7]C\ttres{(-[5]H)}=C\ttres{(-[7]H)}-[1]CH\_2CH\_3\}}\\
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Por ejemplo, sustituyendo el etilo por el cloro ($cis$-2,3-dicloroeteno):
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig{Cl-[7]C(-[5]H)=C(-[7]H)-[1]Cl}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{%
+  \{Cl-[7]C\ttres{(-[5]H)}=C\ttres{(-[7]H)}-[1]Cl\}
+  }
+  \\\hline
+\end{tabular}
+
+
+\vspace{1ex}
+Si queremos incluir el enlace \ce{C-C} en el etilo, entonces hay que tener en cuenta que
+el \ce{CH_3} y el \ce{CH_2} del etilo son dos \emph{átomos} diferentes:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig{CH_3-CH_2-[7]C(-[5]H)=C(-[7]H)-[1]CH_2-CH_3}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{%
+  \{CH\_3-CH\_2-[7]C\ttres{(-[5]H)}=C\ttres{(-[7]H)}-[1]CH\_2-CH\_3\}
+  }
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+El isómero \emph{trans} sería:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig{CH_3-CH_2-[7]C(-[5]H)=C(-[1]H)-[7]CH_2-CH_3}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{%
+  \{CH\_3-CH\_2-[7]C\ttres{(-[5]H)}=C\ttres{(-[1]H)}-[7]CH\_2-CH\_3\}
+  }
+  \\\hline
+\end{tabular}
+
+
+\subsection{Conectando átomos separados}
+Si queremos conectar mediante un enlace dos átomos no contiguos en el código, tenemos
+que añadir una interrogación en el lugar de los átomos que queremos unir.
+
+Supongamos la siguiente estructura base:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{7ex}}
+  \chemfig{A-B(-[2]D)-C}\\
+  \vphantom{\rule{0.4pt}{2.5ex}}
+  \texttt{%
+  \{A-B\ttres{(-[2]D)}-C\}
+  }
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+Ahora queremos unir los átomos D y C mediante un enlace sencillo, añadiendo el
+cierre de interrogación después de cada átomo:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{7ex}}
+  \chemfig{A-B(-[2]D?)-C?}\\
+  \vphantom{\rule{0.4pt}{2.5ex}}
+  \texttt{%
+  \{A-B\ttres{(-[2]D\ttres{?})}-C\ttres{?}\}
+  }
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+¿Y si queremos enlazar varios pares diferentes de átomos? No es muy corriente esta
+situación, pero se puede resolver añadiendo corchetes después de la interrogación.
+
+La interrogación admite varios parámetros entre corchetes:
+\begin{center}
+  \ttmed{?[<nombre>, <enlace>, <TikZ>]}
+\end{center}
+
+
+\vspace{1ex}
+\begin{itemize}
+\item El parámetro \texttt{nombre} sirve para unir diferentes pares de átomos.
+\item \texttt{enlace} se usa si queremos un enlace distinto del sencillo; por ejemplo,
+  un 2 indica enlace doble y los enlaces triangulares, como "\texttt{<}", se deben
+  encerrar entre llaves, así: \texttt{?[nombre,{<}]}y
+\item \texttt{TikZ} sirve, por ejemplo para aplicar un estilo \textsf{TikZ} a ese enlace.
+\end{itemize}
+
+\vspace{1ex}
+Veamos unos ejemplos:
+
+\vspace{1ex}
+Empezamos proponiendo una estructura formada por enlaces sencillos. Hemos decidido
+representar la estructura base \ce{A-B-C}, y a la derecha el código \textsf{chemfig}:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{6ex}}
+  \chemfig{A-B-C?}
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\small%
+  \{A-B-C\}
+  }\\[3.5ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Al átomo \ce{B} le añadimos dos ramificaciones: \texttt{-W-X} y \texttt{-Y-Z}:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{6ex}}
+  \chemfig{A-B(-[1]W-X)(-[7]Y-Z)-C?}
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\small%
+  \{A-B(-[1]W-X)(-[7]Y-Z)-C\}
+  }\\[3.5ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Hasta ahora todo normal. Pero imaginemos que queremos unir \ce{X} con \ce{Z}, pero
+luego queremos añadir otros enlaces no contiguos.
+Tendremos que utilizar nombres diferentes, para este enlace elegiremos el nombre
+"\texttt{a}":
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{6ex}}
+  \chemfig{A-B(-[1]W-X?[a])(-[7]Y-Z?[a])-C}
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\small%
+  \{A-B(-[1]W-X\ttres{?[a]})(-[7]Y-Z\ttres{?[a]})-C\}
+  }\\[3.5ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Además queremos unir \ce{C} con \ce{X}, elegimos otro nombre "\texttt{b}":
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{6ex}}
+  \chemfig{A-B(-[1]W-X?[a]?[b])(-[7]Y-Z?[a])-C?[b]}
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\small%
+  \{A-B(-[1]W-X?[a]\ttres{?[b]})(-[7]Y-Z?[a])-C\ttres{?[b]}\}
+  }\\[3.5ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Unimos \ce{A} con \ce{W}, con el nombre "\texttt{c}":
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{6ex}}
+  \chemfig{A?[c]-B(-[1]W?[c]-X?[a]?[b])(-[7]Y-Z?[a])-C?[b]}
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\small%
+  \{A\ttres{?[c]}-B(-[1]W\ttres{?[c]}-X?[a]?[b])(-[7]Y-Z?[a])-C[b]\}
+  }\\[3.5ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+A continuación, ponemos que el enlace entre \ce{X} y \ce{Z} (nombre "\texttt{a}") es
+doble:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{6ex}}
+  \chemfig{A?[c]-B(-[1]W?[c]-X?[a,2]?[b])(-[7]Y-Z?[a,2])-C?[b]}
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\small%
+  \{A?[c]-B(-[1]W?[c]-X\ttres{?[a,2]}?[b])(-[7]Y-Z\ttres{?[a,2]})-C[b]\}
+  }\\[3.5ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Por último, el enlace entre \ce{C} y \ce{X} (nombre "\texttt{b}") es de color
+rojo:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{6ex}}
+  \chemfig{A?[c,,Red]-B(-[1]W?[c,,Red]-X?[a,2]?[b])(-[7]Y-Z?[a,2])-C?[b]}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{%
+  \{A\ttres{?[c,,Red]}-B(-[1]W\ttres{?[c,,Red]}-X?[a,2]?[b])(-[7]Y-Z?[a,2])-C[b]\}
+  }\\
+  \hline
+\end{tabular}
+
+
+\section{Ciclos}
+A continuación veremos cómo representar fórmulas con anillos. Para empezar, lo
+intentaremos con lo que ya conocemos, consiguiendo resultados medio aceptables, pero
+con problemas. Después veremos un código diseñado específicamente para ciclos, que
+es el recomendado.
+
+\subsubsection{Método no recomendable}
+En principio, un ciclo se puede escribir con lo que ya sabemos, pero es algo complejo
+debido a que cada ciclo tiene un ángulo de giro diferente. Además, a veces surgen
+dificultades al cerrar el ciclo (unir el último grupo de átomos con el primero).
+
+Vamos a representar el ciclopentadieno con lo que sabemos, y vemos que entre otros problemas, una de las líneas de los dobles enlaces se encuentran fuera del ciclo.
+Señalamos este código incorrecto en rojo:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{4ex}}
+  \chemfig[bond join]{-[:36]-[::-72]=[::-72]-[::-72]=[::-72]}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \ttbad{[bond join]\{-[:36]-[::-72]=[::-72]-[::-72]=[::-72]\}}\\
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Para corregir lo anterior, indicamos que el doble enlace debe estar dentro del ciclo, añadiendo un carácter de subrayado al doble enlace \texttt{=\_}, aquí se resalta en color
+rojo:
+
+\vspace{1ex}
+\begin{tabular}{|c|}\hline
+   \vphantom{\rule{0.4pt}{4ex}}
+  \chemfig[bond join]{-[:36]-[::-72]=_[::-72]-[::-72]=_[::-72]}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{%
+  [bond join]\{-[:36]-[::-72]\ttres{=\_}[::-72]-[::-72]\ttres{=\_}[::-72]\}
+  }
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+Ahora nos interesamos por la fórmula semidesarrollada. El problema que encontramos es que
+el doble enlace final es demasiado largo\footnotemark{}:
+\footnotetext{Hemos empezado por el \ce{CH} que está arriba a la izquierda, siguiendo un
+  sentido horario.}
+
+\vspace{1ex}
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{5ex}}
+  \chemfig{CH-[:36]CH_2-[::-72]CH=_[::-72]CH-[::-72]CH=_[::-72]}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+   \ttbad{%
+    \{-[:36]-[::-72]=\_[::-72]-[::-72]=\_[::-72]\}
+    }
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+Para arreglarlo, escalamos el doble enlace para hacerlo más pequeño, añadiendo como segundo parámetro del doble enlace el factor de escalado $0.75$:
+
+\vspace{1ex}
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{5ex}}
+  \chemfig{CH-[:36]CH_2-[::-72]CH=_[::-72]CH-[::-72]CH=_[::-72,.75]}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\small%
+  \{CH-[:36]CH\_2-[::-72]CH=\_[::-72]CH-[::-72]CH=\_[::-72,.75]\}
+  }
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+También se puede arreglar cambiando el espacio en blanco a la llegada del doble
+enlace al grupo CH inicial, en lugar de retocar el espacio interatómico, como en el
+ejercicio anterior. En este caso, además hemos cambiado el orden de los \ce{CH} a
+\ce{HC} a la izquierda de la fórmula:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{5ex}}
+  \chemfig{HC-[:36]CH_2-[::-72]CH=_[::-72]CH-[::-72]HC=_#(,5pt)[::-72]}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{%
+  \{CH-[:36]CH\_2-[::-72]CH=\_[::-72]CH-[::-72]CH=\_\#(,5pt)[::-72]\}
+  }\\
+  \hline
+\end{tabular}
+
+Pero como dijimos antes, no es recomendable escribir ciclos de esta manera.
+
+
+\subsection{Método especial para ciclos y ejemplos}
+Para representar la fórmula de un ciclo de $n$ átomos, se usa la plantilla
+\begin{center}
+  \texttt{\textbackslash chemfig\{<átomo>*n(enlaces)\}}
+\end{center}
+donde los enlaces (o enlaces y átomos) se representan dentro del paréntesis. El átomo
+opcional que va antes del asterisco es el de referencia del anillo, que es el que está
+situado lo más abajo y a la izquierda posible en la molécula. Aunque todos los átomos
+especificados se dibujan formando parte del anillo, el de referencia es, a efectos
+internos el que enlaza con la línea base y que conecta el exterior del anillo con el
+interior.
+
+\vspace{1ex}
+Veamos las fórmulas esquemáticas del ciclopentano y ciclohexano:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{8ex}}
+  \chemfig{*5(-----)}
+  & \chemfig{*6(------)}\\
+  \texttt{%
+  \{*5(-----)\}
+  }
+  & \texttt{%
+    \{*6(------)\}
+    }
+  \\\hline
+\end{tabular}
+
+
+\vspace{1ex}
+Hemos hablado del átomo de referencia, ¿significa que este átomo se sitúa en la línea
+base del texto (\emph{baseline})? Respuesta corta, sí. En la siguiente figura, lada línea
+roja es la línea base:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{8ex}}
+  \tikz \draw[help lines, red] (0,0) -- (5em,0);
+  \chemfig{*6(------)}
+  \tikz \draw[help lines, red] (0,0) -- (5em,0); \\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\textbackslash chemfig\{*6(------)\}}
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+En la sección entre paréntesis (enlaces o enlaces y átomos) estos siguen un orden
+contrario a las agujas del reloj. Por tanto, si ponemos como primer enlace uno doble,
+este se encuentra en primer lugar después del átomo de referencia y el último enlace
+es el que termina de enlazar con él:
+
+\begin{tabular}{|c|c|c|c|}\hline
+  \vphantom{\rule{0.4pt}{8ex}}
+  \chemfig{*5(=----)}
+  & \chemfig{*5(----=)}
+  & \chemfig{*6(=-----)}
+  & \chemfig{*6(-----=)}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{%
+  \{*5(=----)\}
+  }
+  &\texttt{%
+  \{*5(----=)\}
+  }
+  & \texttt{%
+    \{*6(=-----)\}
+    }
+  & \texttt{%
+    \{*6(-----=)\}
+    }
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+Formas resonantes que más contribuyen a la estructura del benceno:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{8ex}}
+  \chemfig{*6(=-=-=-)}
+  & \chemfig{*6(-=-=-=)}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+   \texttt{%
+    \{*6(=-=-=-)\}
+    }
+   & \texttt{%
+    \{*6(-=-=-=)\}
+    }
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+Formas resonantes de Dewar. Aquí se necesita un enlace entre átomos no contiguos.
+Cuando solo hay un enlace así, se señalan los dos átomos con una interrogación
+"\texttt{?}". Estos átomos se unen automáticamente con un enlace sencillo.
+
+La primera estructura une el átomo 2 con el 5; la segunda el 1 con el 4; la última
+une el 3 y el 6:
+
+\begin{tabular}{|c|c|c|}\hline
+  \vphantom{\rule{0.4pt}{8ex}}
+  \chemfig{*6(-?-=-?-=)}
+  & \chemfig{*6(?-=-?-=-)}
+  & \chemfig{*6(=-?-=-?-)}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+   \texttt{%
+  \{*6(-?-=-?-=)\}
+  }
+  & \texttt{%
+  \{*6(?-=-?-=-)\}
+  }
+  & \texttt{%
+    \{*6(=-?-=-?-)\}
+    }
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+Se puede representar el anillo aromático poniendo dos asteriscos y sin especificar los
+enlaces dobles:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{8ex}}
+  \chemfig{**6(------)}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+   \texttt{%
+   \{**6(------)\}
+   }
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+En algunos casos puede ser necesario especificar los carbonos del anillo que están
+conjugados. Para ello se utiliza la siguiente estructura entre corchetes después de los
+dos asteriscos:
+\begin{center}
+  \texttt{<átomo>**[<ángulo1>, <ángulo2>, <TikZ>]<n>(enlaces)}
+\end{center}
+donde \texttt{ángulo1} es el ángulo en el que comienza a dibujarse el círculo,
+\texttt{ángulo2} es el ángulo en que termina el dibujo, \texttt{TikZ} indica el estilo
+\textsf{TikZ} que se empleará para el dibujo.
+Si no se especifican los ángulos, se dibujará un círculo completo.
+
+El ciclopentadieno tiene un \ce{C} (un vértice) que no interviene en las formas
+resonantes:
+
+\vspace{1ex}
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{8ex}}
+  \chemfig{*5(=--=--)}
+  & \chemfig{**[32,360-32]5(------)}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{%
+  \{*5(-----)\}
+  }
+  & \texttt{%
+    \{\ttres{**[32,360-32]}5(------)\}
+    }
+  \\\hline
+\end{tabular}
+
+
+\vspace{1ex}
+Observa, que cuando se trata de un ciclo, no importa el valor del parámetro
+\texttt{fixed length}, pues prima la regularidad del ciclo:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{9ex}}
+  \chemfig[fixed length=true]{HC*5(=CH-CH_2-CH=HC-[,,2,1]CH-)}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{%
+  [fixed length=true]
+  }\\
+  \vphantom{\rule{0.4pt}{0ex}}
+  \texttt{%
+  \{HC*5(=CH-CH\_2-CH=HC-[,,2,1]CH-)\}
+  }\\
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Fórmula anterior con el anillo aromático:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{9ex}}
+  \chemfig{HC**[32,360-32]5(-CH-CH_2-CH-HC-[,,2,1]CH-)}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{%
+  \{HC**[32,360-32]5(-CH-CH\_2-CH-HC-[,,2,1]CH-)\}
+  }
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+Misma fórmula con el anillo aromático discontinuo y en rojo. Este código es muy
+largo y se ha dividido en tres partes:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{9ex}}
+  \chemfig{HC**[32,360-32,line width=1pt,dash pattern=on 3pt off 3pt,red]5
+  (-CH-CH_2-CH-HC-[,,2,1]CH-)}\\
+  \multicolumn{1}{|l|}{%
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{%
+  \{HC
+  }}\\
+  \multicolumn{1}{|l|}{%
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\small
+  **[32,360-32\ttres{,line width=1pt,dash pattern=on 3pt off 3pt,red}]
+  }}\\
+  \multicolumn{1}{|l|}{%
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{%
+  5(-CH-CH\_2-CH-HC-[,,2,1]CH-)\}
+  }}\\
+  \hline
+\end{tabular}
+
+
+\subsubsection{Otros ciclos}
+Piridina:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{8ex}}
+  \chemfig{*6(-N=-=-=)}
+  &\chemfig{*6(=N-=-=-)}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\{*6(-N=-=-=)\}}
+  &\texttt{\{*6(=N-=-=-)\}}\\  
+  \hline
+\end{tabular}
+
+
+
+\subsection{Orientación de un ciclo}
+Ya sabemos que el átomo de referencia en un ciclo se sitúa siempre lo más
+  abajo y a la izquierda posible. También vimos que los siguientes átomos y enlaces
+  siguen el sentido antihorario. El último enlace cae siempre verticalmente y hacia
+  abajo al de referencia, de manera que se completa el ciclo.
+  
+\begin{itemize}  
+\item Podríamos girar un ciclo un ángulo determinado, poniéndolo entre corchetes, como
+  \texttt{[:ángulo]}, justo antes del asterisco (o asteriscos).
+\item Lo anterior funciona siempre que se codifique primero el ciclo.
+  En cambio, si se codifica el ciclo justo después de haber codificado un enlace exterior
+  que se unirá al ciclo, entonces el enlace se dirige hacia el átomo de referencia
+  y el enlace exterior es la bisectriz de los enlaces que forma este último con los que
+  se encuentran contiguos a él. El ciclo se orientará según esa bisectriz.
+\end{itemize}
+
+Un comentario aparte: en algunos ejemplos, hemos utilizado \texttt{\textbackslash
+  raisebox} para que las fórmulas queden aproximadamente a la misma altura, porque al
+rotar, las líneas base de las fórmulas difieren y se verían descompensadas.
+Recordamos el comando:
+\begin{center}
+  \texttt{\textbackslash raisebox \{dim\}\{imagen\}}
+\end{center}
+donde \texttt{dim} es cualquier distancia, por ejemplo \texttt{2ex} para subir o
+\texttt{-2ex} para bajar esa distancia.
+
+\subsubsection{Girando un ciclo}
+Empezaremos con fórmulas esquemáticas, cuyo giro suele ser más fácil de realizar:
+
+\vspace{1ex}
+En el siguiente ejemplo presentamos algunas formas de representar el benceno:
+
+\begin{tabular}{|c|c|c|}\hline
+  \vphantom{\rule{0.4pt}{8ex}}
+  \chemfig{*6(=-=-=-)}
+  & \chemfig{*6(-=-=-=)}
+  & \chemfig{**6(------)}\\
+  \texttt{\{*6(=-=-=-)\}}
+  & \texttt{\{*6(-=-=-=)\}}
+  & \texttt{\{*6(------)\}}\\
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Ahora las rotamos \qty{90}{\degree} (sentido antihorario).
+En la tercera fórmula ha rotado el ciclo, pero el anillo resonante no lo ha hecho, aunque
+aquí no importa porque no se nota ---será importante cuando el efecto de la resonancia no
+se describa mediante una circunferencia completa, como se verá en el ciclopentadieno---:
+
+\begin{tabular}{|c|c|c|}\hline
+  \vphantom{\rule{0.4pt}{10ex}}
+  \chemfig{[:90]*6(=-=-=-)}
+  & \chemfig{[:90]*6(-=-=-=)}
+  & \chemfig{[:90]**6(------)}\\
+  \texttt{\{\ttres{[:90]}*6(=-=-=-)\}}
+  & \texttt{\{\ttres{[:90]}*6(-=-=-=)\}}
+  & \texttt{\{\ttres{[:90]}*6(------)\}}\\
+  \hline
+\end{tabular}
+
+
+\vspace{1ex}
+Repetimos lo mismo con el ciclopentadieno:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{8ex}}
+  \chemfig{*5(=--=-)}
+  & \chemfig{**[32,360-32]5(-----)}\\
+  \texttt{\{*5(=--=-)\}}
+  & \texttt{**[32,360-32]5(-----)}\\
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Ahora giramos las fórmulas. La fórmula de la derecha es incorrecta, porque ha girado
+el ciclo, pero el arco resonante no lo ha hecho:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{8ex}}
+  \chemfig{[:90]*5(=--=-)}
+  & \chemfig{[:90]**[32,360-32]5(-----)}\\
+  \texttt{\{[:90]*5(=--=-)\}}
+  & \ttbad{[:90]**[32,360-32]5(-----)}\\
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+La forma rotada correcta de la fórmula de la derecha se puede obtener de dos formas
+diferentes:
+
+1) Girando el ciclo y recalculando los ángulos de inicio y final del arco, lo que
+significa que hay que sumar ese mismo ángulo (en este caso \qty{90}{\degree}) a estos:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{8ex}}
+  \chemfig{[:90]**[32+90,360-32+90]5(-----)}\\
+  \texttt{\{\ttres{[:90]}**[32\ttres{+90},360-32\ttres{+90}]5(-----)\}}\\
+  \hline
+\end{tabular}
+
+2) Rotar toda la fórmula usando un comando del paquete \texttt{graphicx}, que no
+es necesario cargar porque \textsf{chemfig} lo hace automáticamente. Este comando
+rota toda la figura incluido el anillo aromático. Para ello utilizamos la función
+\begin{center}
+  \texttt{\textbackslash rotatebox\{ángulo\}\{figura a rotar\}}
+\end{center}
+De esta manera no tenemos que recalcular los ángulos inicial y final del arco:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{8ex}}
+  \rotatebox{90}{\chemfig{**[32,360-32]5(------)}}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{%
+  \ttres{\textbackslash rotatebox\{90\}\{}\textbackslash chemfig\{**[32,360-32]5(------)\}\ttres{\}}
+    }
+  \\\hline
+\end{tabular}
+
+
+\vspace{1ex}
+Cuando escribimos la fórmula semidesarrollada de un ciclo nos podemos encontrar
+problemas. Veamos una fórmula sin rotar:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{9ex}}
+  \chemfig{HC*6(=CH-CH=CH-CH=HC-[,,2,2])}
+  & \texttt{
+  \{HC*6(=CH-CH=CH-CH=HC-[,,2,2])\}
+  }\\[2.5ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+La rotación con \texttt{\textbackslash rotatebox} no funcionaría porque voltea las
+letras de los elementos y no resulta una fórmula aceptable, a menos que se quiera ese
+efecto por alguna razón:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{14ex}}
+  \raisebox{-2ex}{\rotatebox{90}{\chemfig{HC*6(=CH-CH=CH-CH=HC-[,,2,2])}}}
+  & \ttbad{
+  \textbackslash rotatebox\{90\}\{\{HC*6(=CH-CH=CH-CH=HC-[,,2,2])\}\}
+  }\\[3ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Ahora giramos, insertando el ángulo de giro al principio del 
+\texttt{\textbackslash config} y hay algunos grupos de átomos de \ce{C} e \ce{H} que
+no están bien orientados (justo los que se encontraban a la izquierda del anillo
+bencénico:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{9ex}}
+  \raisebox{-2ex}{\chemfig{[:90]HC*6(=CH-CH=CH-CH=HC-[,,2,2])}}
+  & \ttbad{
+  \{[:90]HC*6(=CH-CH=CH-CH=HC-[,,2,2])\}
+  }\\[2.5ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Cambiamos la orientación de algunos grupos de átomos \ce{CH}, que aparecen en rojo,
+y redirigimos los enlaces hacia los átomos apropiados dentro de cada grupo de átomos.
+Esta fórmula ya es aceptable:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{9ex}}
+  \raisebox{-2ex}{\chemfig{[:90]CH*6(=[,,1,1]CH-[,,1,1]CH=HC-[,,2,2]HC=[,,2,2]HC-)}}\\[2.5ex] \texttt{\{[:90]\ttres{CH}*6(=\ttres{[,,1,1]}CH-\ttres{[,,1,1]}CH=\ttres{HC}-\ttres{[,,2,2]}\ttres{HC}=\ttres{[,,2,2]}HC\ttres{-)}\}
+  }\\
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Otro cambio posible es:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{9ex}}
+  \raisebox{-2ex}{\chemfig{[:90]CH*6(=[,,1,1]CH-[,,1,1]CH=CH-[,,1,2]CH=[,,2,2]CH-[,,2,2])}}
+  & \texttt{
+  \{[:90]\ttres{CH}*6(=CH-CH=\ttres{HC}-\ttres{HC}=HC-[,,2,2])\}
+  }\\[2.5ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+O estos otr:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{10ex}}
+  \raisebox{-2ex}{\chemfig[fixed length]{[:90]CH*6(=CH-CH=CH-HC=CH-[,,2,2])}}
+  & \texttt{
+    \{[:90]CH*6(=CH-CH=CH-HC=CH-[,,2,2])\}
+  }\\[2.5ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{10ex}}
+  \raisebox{-2ex}{\chemfig[fixed length]{[:90]CH*6(=CH-CH=CH-HC=CH-[,,2,2])}}
+  & \texttt{
+    \{[:90]CH*6(=CH-CH=CH-HC=CH-[,,2,2])\}
+  }\\[2.5ex]
+  \hline
+\end{tabular}
+
+
+\vspace{1ex}
+Pasamos al ciclopentadieno sin rotar:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{9ex}}
+  \chemfig{HC*5(=CH-CH_2-CH=HC-[,,2,2]CH-)}
+  & \texttt{
+  \{HC*5(=CH-CH\_2-CH=CH-[,,2,2]CH-\}
+  }\\[2.5ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Podemos escribir la fórmula semidesarrollada del ciclopentadieno, pero no podemos rotarla
+con \texttt{\textbackslash rotatebox} porque no se vería bien.
+
+\vspace{1ex}
+Pero se puede conseguir un resultado medio aceptable poniendo, como con el benceno
+el ángulo girado al principio del comando \texttt{\textbackslash config}.
+A continuación se proponen tres fórmulas medio aceptables:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{9ex}}
+  \raisebox{-1.5ex}{\chemfig{[:90]CH*5(=CH-CH_2-CH=CH-[,,2,2]CH-)}}
+  & \texttt{
+  \{[:90]HC*5(=CH-CH\_2-CH=CH-[,,2,2]CH-\}
+  }\\[2.5ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{9ex}}
+  \raisebox{-1.5ex}{\chemfig{[:90]CH*5(=CH-CH_2-HC=HC-[,,2,2]CH-)}}
+  & \texttt{
+  \{[:90]HC*5(=CH-CH\_2-CH=CH-[,,2,2]CH-\}
+  }\\[2.5ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{9ex}}
+  \raisebox{-1.5ex}{\chemfig{[:90]CH*5(=[,,1,1]CH-CH_2-HC=[,,2,2]HC-CH-)}}
+  & \texttt{
+  \{[:90]CH*5(=[,,1,1]CH-CH\_2-HC=[,,2,2]HC-CH-)\}
+  }\\[2.5ex]
+  \hline
+\end{tabular}
+
+
+\subsubsection{Ciclo después de un enlace}
+Supongamos que queremos escribir la fórmula del \emph{tolueno}, empezando por el
+metilo:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{7ex}}
+  \chemfig{CH_3-**6(------)}
+  & \raisebox{-1ex}{\texttt{\{\ttres{CH\_3-}**6(------)\}}}\\[4ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{7ex}}
+  \chemfig{CH_3-[4]**6(------)}
+  & \raisebox{-2ex}{\texttt{\{\ttres{CH\_3-[4]}**6(------)\}}}\\[4ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{10ex}}
+  \raisebox{6ex}{\chemfig{CH_3-[:180+30]**6(------)}}
+  & \raisebox{1ex}{\texttt{\{\ttres{CH\_3-[180+30]}**6(------)\}}}\\[4ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{15ex}}
+  \raisebox{12ex}{\chemfig{CH_3-[6]**6(------)}}
+  & \raisebox{4ex}{\texttt{\{\ttres{CH\_3-[6]}**6(------)\}}}\\[2ex]
+  \hline
+\end{tabular}
+
+\subsection{Ciclos incompletos}
+Un ciclo puede estar formado por menos enlaces de los que puede contener. Si hubiera
+más, se ignorarían:
+
+\vspace{1ex}
+Veamos el 1-buteno:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{7ex}}
+  \chemfig{CH_2*6(=CH-CH_2-CH_3)}
+  & \texttt{
+  \{CH\_2*6(=CH-CH\_2-CH\_3)\}
+  }\\[3ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Lo giramos de diversas formas:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{5ex}}
+  \raisebox{-4ex}{\chemfig{[:-30]CH_2*6(=CH-CH_2-CH_3)}}
+  & \raisebox{-8ex}{\chemfig{[:60]CH_2*6(=CH-CH_2-CH_3)}}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\{\ttres{[:-30]}CH\_2*6(=CH-CH\_2-CH\_3)\}}
+  & \texttt{\{\ttres{[:60]}CH\_2*6(=CH-CH\_2-CH\_3)\}}\\
+  \hline
+\end{tabular}
+
+\subsection{Ramificaciones en ciclos}
+La ramificaciones se añaden a los átomos de un ciclo de la misma forma que se explicó
+en su momento, añadiendo la ramificación entre paréntesis.
+
+\vspace{1ex}
+Veamos el \emph{tolueno} y el $m$-diclorobenceno:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{14ex}}
+  \chemfig{*6(=-=-(-CH_3)=-)}
+  & \chemfig{*6(=-(-Cl)=-(-Cl)=-)}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\{*6(=-=-\ttres{(-CH\_3)}=-)\}}
+  & \texttt{\{*6(=-\ttres{(-Cl)}=-\ttres{(-Cl)}=-)\}}\\
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Puede interesar disminuir la longitud del enlace de ramificación, utilizando las
+mismas sustancias:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{13ex}}
+  \chemfig{*6(=-=-(-[,0.7]CH_3)=-)}
+  & \chemfig{*6(=-(-[,0.7]Cl)=-(-[,0.7]Cl)=-)}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\{*6(=-=-(-\ttres{[,0.7]}CH\_3)=-)\}}
+  & \texttt{\{*6(=-(-\ttres{[,0.7]}Cl)=-(-\ttres{[,0.7]}Cl)=-)\}}\\
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Incluso se puede disminuir mucho la distancia y quitar la opacidad de los enlaces:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{10ex}}
+  \chemfig{*6(=-=-(-[,0.24,,,opacity=0]CH_3)=-)}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\{*6(=-=-(-\ttres{[,0.24,,,opacity=0]}CH\_3)=-)\}}\\
+  \hline
+\end{tabular}
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{12ex}}
+  \chemfig{*6(=-(-[,0.24,,,opacity=0]Cl)=-(-[,0.24,,,opacity=0]Cl)=-)}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+ \texttt{\{*6(=-(-\ttres{[,0.24,,,opacity=0]}Cl)=-(-\ttres{[,0.24,,,opacity=0]}Cl)=-)\}}\\
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Dos sustancias más, ciclohexa-2,5-dien-1-ona y \emph{anilina} (o bencenamina o
+fenilamina):
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{12ex}}
+  \chemfig{*6(--=-(=[,0.6]O)-=)}
+  & \chemfig{**6(---(-[,0.7]NH_2)---)}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\{*6(--=-(=\ttres{[,0.6]}O)-=)\}}
+  & \texttt{\**6(---(-\ttres{[,0.7]}NH\_2)---)\}}\\
+  \hline
+\end{tabular}
+
+
+\subsection{Ciclos condensados}
+Para condensar dos ciclos, se elige un átomo del primero y, como si fuera una
+ramificación, encerramos entre paréntesis el segundo ciclo.
+
+\vspace{1ex}
+A continuación veremos el \emph{naftaleno}. Elegimos el tercer átomo del benceno,
+dejando pasar dos enlaces y a continuación insertamos entre paréntesis el segundo ciclo,
+con lo que el segundo ciclo se \emph{pega} entre los carbonos tres y cuatro.
+Es importante destacar que aquí, el carbono uno no es el que la IUPAC asigna al naftaleno,
+sino el átomo de referencia:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{9ex}}
+  \chemfig{*6(-=(*6(-=-=--))-=-=)}
+  & \chemfig{**6(--(**6(------))----)}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\{*6(-=\ttres{(*6(-=-=--))}-=-=)\}}
+  & \texttt{\{**6(--\ttres{(**6(------))}----)\}}\\
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Observa que el último enlace (el que cae verticalmente) del segundo ciclo, está de más,
+pues ya se ha representado para el primero (ambos son enlaces sencillos). Esta es
+la razón por la que se puede eliminar. Comprueba que para el segundo ciclo tenemos
+solo cinco enlaces. Nótese que se eliminan los últimos enlaces de los ciclos que
+se condensan, no los del original:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{9ex}}
+  \chemfig{*6(-=(*6(-=-=-))-=-=)}
+  & \chemfig{**6(--(**6(-----))----)}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\{*6(-=\ttres{(*6(-=-=-))}-=-=)\}}
+  & \texttt{\{**6(--\ttres{(**6(-----))}----)\}}\\
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+En los siguientes ejemplos se eliminarán estos últimos enlaces.
+
+\vspace{1ex}
+\emph{Antraceno}. En rojo se marca el segundo ciclo y en verde el tercero:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{9ex}}
+  \chemfig{*6(-=(*6(-=(*6(-=-=-))-=-))-=-=)}
+  & \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\{*6(-=\ttres{(*6(-=\ttresg{(*6(-=-=-))}-=-))}-=-=)\}}\\[3ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{9ex}}
+  \chemfig{**6(--(**6(--(**6(-----))---))----)}
+  &\vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\{**6(--\ttres{(**6(--\ttresg{(**6(-----))}---))}----)\}}\\[3ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+\emph{Fenantreno}:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{15ex}}
+  \chemfig{*6(=-(*6(-=-(*6(-=-=-))=--))=-=-)}
+  & \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\{*6(=-\ttres{(*6(-=-\ttresg{(*6(-=-=-))}=--))}=-=-)\}}\\[3ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{15ex}}
+  \chemfig{**6(--(**6(---(**6(------))---))----)}
+  & \vphantom{\rule{0.4pt}{3ex}}
+   \texttt{\{**6(--\ttres{(**6(---\ttresg{(**6(-----))}--))}----)\}}\\[3ex]
+  \hline
+\end{tabular}
+
+
+\vspace{1ex}
+Pero hay un problema cuando se quiere representar el átomo número 4 (empezando por
+el de referencia del primer ciclo), pues cuando se dibuja el siguiente ciclo, este no es
+consciente de la presencia de ese átomo (en la fórmula siguiente señalamos el cuarto
+átomo de color rojo) y por tanto el enlace \emph{tapa} al átomo:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{10ex}}
+  \chemfig{HC*6(-CH=C(*6(-CH=CH-CH=CH-))-\textcolor{Red}{\textbf{C}}=CH-HC=[,,2,2])}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \ttbad{\{HC*6(-CH=C(*6(-CH=CH-CH=CH-))-\textbf{C}=CH-HC=[,,2,2])\}}\\
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Para corregir esto, tenemos que hacer que el siguiente ciclo sea consciente de ese
+átomo mediante \texttt{\textbackslash phantom}, que se sitúa después del penúltimo
+enlace (recordemos que el último se eliminó):
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{10ex}}
+  \chemfig{HC*6(-CH=C(*6(-CH=CH-CH=CH-\phantom{C}))-C=CH-HC=[,,2,2])}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{\{HC*6(-CH=C(*6(-CH=CH-CH=CH-\ttres{\textbackslash phantom\{C\}}))-C=CH-HC=[,,2,2])\}}\\
+  \hline
+\end{tabular}
+
+\subsection{Grupos de átomos en ciclos}
+Cuando un ciclo está formado por grupos de átomos, este no suele ser regular:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{10ex}}
+  \chemfig{ABC*5(-DEF-G-HI-M-)}
+  &\vphantom{\rule{0.4pt}{3ex}}
+    \texttt{\{ABC*5(-DEF-G-HI-M-\}}\\[3ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+En este caso, tenemos que conectar \ce{D} con \ce{G}, para ello al enlace que sale de
+\ce{DEF} le obligamos a salir del atomo 1 (\ce{D}), mientras que al enlace que llega a
+\ce{HI} le obligamos a llegar al átomo 1 (\ce{H}), lo que produce un ciclo regular:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{10ex}}
+  \chemfig{ABC*5(-DEF-[,,1]G-[,,,1]HI-M-)}
+  &\vphantom{\rule{0.4pt}{3ex}}
+    \texttt{\{ABC*5(-DEF-\ttres{[,,1]}G-\ttres{[,,,1]}HI-M-)\}}\\[3ex]
+  \hline
+\end{tabular}
+
+\subsection{Centro de los ciclos}
+Cada ciclo tiene en su centro un nodo de dimensión cero, \texttt{centrecycle<n>}, donde
+\texttt{<n>} es el número del ciclo (según se dibujan en el comando
+\texttt{\textbackslash chemfig}. En caso de duda se puede pedir que se muestre el número
+de cada anillo, poniendo
+\begin{center}\texttt{show cntcycle=true}\end{center}
+
+Hay un parámetro, \texttt{autoreset cntcycle}, que por defecto es \texttt{true}, que
+hace que el contador de ciclo pase de nuevo a cero cada vez que comienza un comando
+\texttt{\textbackslash chemfig}.
+
+\vspace{1ex}
+Pongamos el ejemplo anterior del \emph{antraceno}:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{6ex}}
+  \raisebox{-3ex}{\chemfig[show cntcycle]{*6(=-(*6(-=(*6(-=-=-))-=--))=-=-)}}\\
+  \vphantom{\rule{0.4pt}{3ex}}
+    \texttt{[show cntcycle=true]}\\
+  \texttt{\{*6(=-\ttres{(*6(-=\ttresg{(*6(-=-=-))}=--))}-=-=-)\}}\\
+  \hline
+\end{tabular}
+
+
+\vspace{1ex}
+Con esta información podríamos hacer algo así como trazar una flecha de un centro
+a otro, o poner un símbolo en el centro de un ciclo. Se elimina el comando
+\texttt{\textbackslash chemfig} que dibuja los ciclos y ponemos los que le siguen:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.4pt}{9ex}}
+  \chemfig{*6(=-(*6(-=(*6(-=-=-))-=--))=-=-)}
+  \chemmove{%
+  \draw[red](cyclecenter1)to[out=-30,in=-150](cyclecenter2);
+  \node[red] at (cyclecenter3){$+$};}
+  \\[2ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|@{\hspace{-1em}}c|}\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \begin{lstlisting}[basicstyle=\ttfamily\small,language=TeX]
+    \chemfig{*6(=-(*6(-=(*6(-=-=-))-=--))=-=-)}
+    \chemmove{%
+      \draw[red](cyclecenter1)to[out=-10,in=180+10](cyclecenter2);
+      \node[red] at (cyclecenter3){$+$};
+    }
+  \end{lstlisting}
+  \\[1ex]
+  \hline
+\end{tabular}
+
+Es importante compilar dos veces el código fuente para que se produzca el efecto.
+En la primera pasada, se guardan las posiciones de los nodos, y en la segunda, se
+utilizan para generar el efecto deseado.
+
+
+
+
 
 
 
