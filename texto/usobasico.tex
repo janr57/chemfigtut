@@ -37,6 +37,215 @@ teniendo que escribir más. En algunas de esas situaciones especiales podría in
 En realidad, \textsf{chemfig} tiene muchas formas de personalizar las fórmulas y/o
 reacciones químicas, mientras que \textsf{mhchem} es más limitado en ese sentido.
 
+\subsection{Carga de \textsf{chemfig}}
+Para poder utilizarlo es preciso cargarlo en el preámbulo del documento, esto es,
+antes de \texttt{\textbackslash begin
+  \{document\}...\textbackslash end\{document\}}.
+
+Se pueden dar dos situaciones:
+\vspace{-1ex}
+\begin{itemize}
+\item Si \textsf{chemfig} se carga en el fichero principal:
+  \ttres{\textbackslash usepackage\{chemfig\}}
+\item Si queremos que el fichero principal se vea más ordenado, entonces se debe
+  indicar qué otro fichero realizará la carga, en cuyo caso se deberá escribir en
+  el principal la línea: 
+  \ttres{\textbackslash usepackage\{fichero.pkg\}} en el
+  principal, indicando que el fichero que realizará la carga será 
+ \texttt{fichero.pkg.sty}. En este último hay que añadir una línea que ponga:
+ \ttres{\textbackslash RequirePackage\{chemfig\}},
+ además del resto de paquetes que nos interese cargar.
+\end{itemize}
+
+\vspace{3ex}
+
+\begin{tikzpicture}
+  % Define box and box title style
+  \tikzstyle{myboxfichero} = [draw=blue, fill=blue!3, very thick,
+  rectangle, rounded corners, inner sep=10pt, inner ysep=20pt]
+  \tikzstyle{fancytitle} =[fill=blue, text=white]
+    
+  \node [myboxfichero] (box){%
+    \begin{minipage}{0.40\textwidth}
+      {\small
+        
+        \vspace{-1ex}
+        \texttt{\% principal.tex}
+        
+        \vspace{1ex}
+        
+        \texttt{\textbackslash documentclass ...}
+        
+        \vspace{1ex}
+        
+        \texttt{\% principal.pkg.sty}
+        
+        \ttres{\textbackslash usepackage\{principal.pkg\}}
+        
+        \vspace{2ex}
+        
+        \texttt{\textbackslash begin\{document\}}
+        
+        \texttt{$\cdots$}
+        
+        \texttt{\textbackslash end\{document\}}
+      }
+    \end{minipage}
+  };
+
+  \node[fancytitle, right=10pt] at (box.north west) {Fichero principal};
+  % \node[fancytitle, rounded corners] at (box.east) {$\clubsuit$};
+\end{tikzpicture}%
+%
+\hspace{1em}
+\begin{tikzpicture}[transform shape, rotate=0, baseline=-2.9cm]
+  % Define box and box title style
+  \tikzstyle{myboxfichero} = [draw=blue, fill=blue!3, very thick,
+  rectangle, rounded corners, inner sep=10pt, inner ysep=20pt]
+  \tikzstyle{fancytitle} =[fill=blue, text=white]
+  
+  \node [myboxfichero] (box) {%
+    \begin{minipage}[t!]{0.40\textwidth}
+      {\small
+        \vspace{-1ex}
+        \texttt{\% principal.pkg.sty}
+        
+        \vspace{1ex}
+        
+        \texttt{$\cdots$}
+        \vspace{1ex}
+        
+        \ttres{\textbackslash RequirePackage\{chemfig\}}
+        \vspace{1ex}
+        
+        \texttt{$\cdots$}
+        
+        \vspace{1ex}
+      }
+    \end{minipage}
+  };
+  \node[fancytitle] at (box.north) {Fichero para cargar paquetes};
+\end{tikzpicture}
+
+
+\subsection{Uso de \textsf{chemfig}}
+El comando básico es \texttt{\textbackslash chemfig\{...\}}.
+Su uso genérico es:
+\begin{center}
+\texttt{\textbackslash chemfig[lista de <claves>=<valores>]\{<código de la molécula>\}}
+\end{center}
+
+Antes de seguir mostramos una tabla con las diferentes claves, sus valores por defecto y
+significado:
+{\small
+\begin{center}
+  \begin{longtable}{rcl}\hline
+    \label{tbl:chemfig_claves}
+    \texttt{<clave>} & \texttt{Valor} & \texttt{Descripción}\\\hline
+    \texttt{\color{Blue}{chemfig style}}
+    & ---
+    & Estilo que se le pasa a \textsf{TikZ}\\
+    \texttt{\color{Blue}{use atom strut}}
+    & \texttt{false}
+    & Tener en cuenta la caja de un átomo al situar\\&& la del siguiente\\
+    \texttt{\color{Blue}{atom style}}
+    & ---
+    & Estilo de los nodos \textsf{TikZ} de los átomos\\
+    \texttt{\color{Blue}{bond join}}
+    & \texttt{false}
+    & Une enlaces de forma precisa\\
+    \texttt{\color{Blue}{fixed length}}
+    & \texttt{false}
+    & Todos los enlaces tienen la misma longitud\\
+    \texttt{\color{Blue}{cram rectangle}}
+    & \texttt{false}
+    & No respeta el enlace triangular entre átomos\\
+    \texttt{\color{Blue}{cram width}}
+    & \texttt{1.5ex}
+    & Anchura de la base del enlace \emph{cram}\\
+    \texttt{\color{Blue}{cram dash width}}
+    & \texttt{1pt}
+    & Grosor de cada guión que forma el enlace \emph{cram}\\
+    \texttt{\color{Blue}{cram dash sep}}
+    & \texttt{2pt}
+    & Espacio entre guiones del enlace \emph{cram}\\
+    \texttt{\color{Blue}{atom sep}}
+    & \texttt{3em}
+    & Separación entre átomos\\
+    \texttt{\color{Blue}{bond offset}}
+    & \texttt{2pt}
+    & Espacio entre átomo y enlace\\
+    \texttt{\color{Blue}{double bond sep}}
+    & \texttt{2pt}
+    & Espacio entre líneas en enlaces múltiples\\
+    \texttt{\color{Blue}{angle increment}}
+    & \texttt{45}
+    & Incremento de ángulo cuando se usa código\\
+    \texttt{\color{Blue}{node style}}
+    & ---
+    & Estilo de átomos\\
+    \texttt{\color{Blue}{bond style}}
+    & ---
+    & Estilo de enlaces\\
+    \texttt{\color{Blue}{baseline}}
+    & \texttt{0pt}
+    & Se elige el átomo que define la altura base\\
+    \texttt{\color{Blue}{debug}}
+    & \texttt{false}
+    & Muestra líneas y cajas en la fórmula\\
+    \texttt{\color{Blue}{cycle radius coeff}}
+    & \texttt{0.75}
+    & Controla tamaño del círculo aromático\\
+    \texttt{\color{Blue}{stack sep}}
+    & \texttt{1.5pt}
+    & Espaciado vertical entre argumentos de las\\&& macros \texttt{\textbackslash chemabove} y \texttt{\textbackslash chembelow}\\
+    \texttt{\color{Blue}{show cntcycle}}
+    & \texttt{false}
+    & Muestra numeración en los ciclos\\
+    \texttt{\color{Blue}{autoreset cntcycle}}
+    & \texttt{true}
+    & Reinicia numeración en \texttt{\textbackslash chemfigexecution}\\
+    \texttt{\color{Blue}{gchemname}}
+    & \texttt{true}
+    & Utiliza las asignaciones de profundidad en \\&& \texttt{\textbackslash chemnameinit} y \texttt{\textbackslash chemnameglobal}\\
+    \hline
+    \caption{Tabla de claves del comando \texttt{\backslash config}.}
+  \end{longtable}
+\end{center}
+}
+
+\vspace{-5ex}
+Estas claves se muestran aquí como referencia. Las más importantes se discutirán en las
+siguientes secciones.
+
+A veces queremos modificar una opción por defecto para todo el documento, y otras
+solo queremos que afecte a una fórmula o grupo de ellas:
+\begin{itemize}
+\item Para modificar el valor de una clave para todo el documento, podemos
+  escribir en el prólogo del documento:
+  \begin{center}
+    \texttt{\textbackslash setchemfig\{clave=valor\}}
+  \end{center}
+  \item Para modificar el valor y que afecte a una fórmula, escribiríamos:
+    \begin{center}
+      \texttt{\textbackslash chemfig[clave=valor]\{... fórmula ...\}}
+    \end{center}
+\end{itemize}
+
+Puede ser que alguna de las opciones que \textsf{chemfig} nos ofrece por defecto, por
+ejemplo, la separación entre los átomos y longitud de los enlaces que nos parecieran
+desproporcionadas (véase la tercera celda de la tabla de ejemplos de la sección
+siguiente). En ese caso, deberíamos poder modificar esas opciones.
+
+En ese supuesto, sería práctico poner otros valores por defecto que nos parecieran
+razonables en el prólogo para todo el documento, y si quisiéramos personalizar alguna fórmula en particular dentro de este, podríamos asignar un valor concreto en ese caso,
+sin afectar al resto de fórmulas.
+
+
+
+
+
+
 
 
 
