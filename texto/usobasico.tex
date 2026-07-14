@@ -472,6 +472,789 @@ Los enlaces triples se representan con la tilde, \texttt{\textasciitilde}:
 \end{tabular}
 
 
+\section{Enlaces químicos}
+Los enlaces (junto con los elementos) son el centro de atención de la formulación. Así,
+no es de extrañar que \textsf{chemfig}, permita configurarlos de muchas maneras.
+Ahora entraremos en una parte algo más teórica (no del todo) y nos esforzaremos en
+explicar los detalles más importantes.
+
+\subsection{Tipos de enlace}
+En \textsf{chemfig} hay nueve tipos de enlace:
+\begin{center}
+  {\normalsize
+  \begin{longtable}{lrcl}\hline
+    \label{tbl:chemfig_enlaces}
+   \texttt{\#} & \texttt{Código} & \texttt{Resultado} & \texttt{Tipo de enlace}\\\hline
+    1
+    & \textcolor{blue}{\texttt{\textbackslash chemfig{\{A-B\}}}}
+    & \chemfig{A-B}
+    & Sencillo\\
+    2
+    & \textcolor{blue}{\texttt{\textbackslash chemfig{\{A=B\}}}}
+    & \chemfig{A=B}
+    & Doble\\
+    3
+    &\textcolor{blue}{\texttt{\textbackslash chemfig{\{A\textasciitilde B\}}}}
+    & \chemfig{A~B}
+    & Triple\\
+    4
+    & \textcolor{blue}{\texttt{\textbackslash chemfig{\{B>A\}}}}
+    & \chemfig{B>A}
+    & Triangular izquierdo relleno\\
+    5
+    & \textcolor{blue}{\texttt{\textbackslash chemfig{\{A<B\}}}}
+    & \chemfig{A<B}
+    & Triangular derecho relleno\\
+    6
+    & \textcolor{blue}{\texttt{\textbackslash chemfig{\{B>:A\}}}}
+    & \chemfig{B>:A}
+    & Triangular izquierdo rayado\\
+    7
+    & \textcolor{blue}{\texttt{\textbackslash chemfig{\{A<:B\}}}}
+    & \chemfig{A<:B}
+    & Triangular derecho rayado\\
+    8
+    & \textcolor{blue}{\texttt{\textbackslash chemfig{\{A<|B\}}}}
+    & \chemfig{A<|B}
+    & Triangular derecho hueco\\
+    9
+    & \textcolor{blue}{\texttt{\textbackslash chemfig{\{B>|A\}}}}
+    & \chemfig{B>|A}
+    & Triangular izquierdo hueco\\
+    \hline
+    \caption{Enlaces en \textsf{chemfig}.}
+  \end{longtable}
+  }
+\end{center}
+
+\subsection{Parámetro "\texttt{double bond sep}"}
+ La clave
+\begin{center}
+  \texttt{double bond sep=<dim>}
+\end{center}
+indica la separación entre las líneas que forman los
+enlaces múltiples (doble y triple); \texttt{<dim>} es una dimensión, que por defecto es
+de $2pt$.
+
+Ejemplos:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig[atom sep=1.8em]{CH~CH}
+  & \chemfig[atom sep=1.8em,double bond sep=1.5pt]{CH~CH}\\
+  \texttt{[atom sep=1.8em]} & \texttt{[atom sep=1.8em,\ttres{double bond sep=1.5pt}]}\\
+  \texttt{\textbackslash chemfig\{CH\textasciitilde CH\}}
+  & \texttt{\textbackslash chemfig\{CH\textasciitilde CH\}}\\
+  \hline
+\end{tabular}
+
+\subsection{Conceptos relacionados con la distancia de enlace}
+
+\vspace{1ex}
+Cuando se sitúa un enlace entre dos átomos hay varios aspectos a considerar:
+\begin{itemize}
+\item El primero es que cada \emph{átomo} (que puede ser \ce{C}, \ce{Cl}, \ce{H2}, etc.),
+  se encierra en una caja (\emph{bounding box}). En la figura que sigue, los átomos son
+  \ce{A} y \ce{B}. Las cajas encierran a los átomos y los puntos rojos son el centro de
+  las cajas.
+\item El segundo es la distancia $\Delta$ entre los centros de las cajas, que se
+  configura mediante \texttt{atom sep}. Esta interpreteación es válida siempre que
+  \texttt{fixed length} sea \texttt{false}, que es el estado por defecto en
+  \textsf{chemfig}.
+  En caso contrario, esto es, si \texttt{fixed length=true}, \texttt{atom sep} se
+  interpreta como la distancia mínima entre los bordes de las cajas de los dos átomos
+  enlazados.
+\item El tercero es la distancia $\delta$ entre el borde una caja y el lugar donde
+  comienza a dibujarse el enlace, que se configura mediante \texttt{bond offset}.
+\end{itemize}
+
+\begin{center}
+  \begin{tikzpicture}[%
+    every node/.style={%
+      anchor=base,inner sep=1.5pt,outer sep=0pt,minimum size=0pt},
+    baseline
+    ]
+    \node[draw] at(0,0)(aa){\huge A};
+    \node[draw]at(4,0)(bb){\huge B};
+    \path[shorten <=10pt,shorten >=10pt,draw]
+    (aa)--(bb)coordinate[pos=0](al) coordinate[pos=1](bl);
+    \node[draw,circle,fill,blue,minimum size=1.5pt,inner sep=0pt]at(al){};
+    \node[draw,circle,fill,blue,minimum size=1.5pt,inner sep=0pt]at([xshift=10pt]al){};
+    \node[draw,circle,fill,blue,minimum size=1.5pt,inner sep=0pt]at(bl){};
+    \node[draw,circle,fill,blue,minimum size=1.5pt,inner sep=0pt]at([xshift=-10pt]bl){};
+    \draw[blue,dash pattern=on 1pt off 1pt](bl)--([yshift=0.7cm]bl);
+    \draw[blue,dash pattern=on 1pt off 1pt]
+    ([xshift=-10pt]bl)--([xshift=-10pt,yshift=0.7cm]bl);
+    \draw[stealth-stealth]
+    ([yshift=0.6cm]bl.center)--([xshift=-10pt,yshift=0.6cm]bl.center)
+    node [midway,above,draw=none]{$\delta$};
+    \draw[blue,dash pattern=on 1pt off 1pt](al)--([yshift=0.7cm]al);
+    \draw[blue,dash pattern=on 1pt off 1pt]
+    ([xshift=10pt]al)--([xshift=10pt,yshift=0.7cm]al);
+    \draw[stealth-stealth]
+    ([yshift=0.6cm]al.center)--([xshift=10pt,yshift=0.6cm]al.center)
+    node [midway,above,draw=none]{$\delta$};
+    \node[draw,circle,fill,red,minimum size=2pt,inner sep=0pt]at(aa){};
+    \node[draw,circle,fill,red,minimum size=2pt,inner sep=0pt]at(bb){};
+    \draw[stealth-stealth]
+    ([yshift=1cm]aa.center)--([yshift=1cm]bb.center)
+    node [midway,above,draw=none] {$\Delta$};
+    \draw[red,dash pattern=on 2pt off2pt](aa.center)--([yshift=1.1cm]aa.center);
+    \draw[red,dash pattern=on 2pt off2pt](bb.center)--([yshift=1.1cm]bb.center);
+  \end{tikzpicture}
+\end{center}
+
+\subsection{Ejemplos con "\texttt{atom sep}", "\texttt{bond offset}"
+  y "\texttt{bond style}"}
+Estudiaremos tres claves del comando \texttt{\textbackslash chemfig}, relacionadas con
+los enlaces:
+\begin{itemize}
+\item \texttt{atom sep}:
+  
+  \vspace{-1ex}
+  Separación entre los centros de las cajas de los átomos:
+  
+  \begin{tabular}{|c|c|}\hline
+    \vphantom{\rule{0.4pt}{3ex}}
+    \chemfig[atom sep=2em]{A-B}
+    & \chemfig[atom sep=50pt]{A-B}\\
+    \texttt{[\ttres{atom sep=2em}]} & \texttt{[\ttres{atom sep=50pt}]}\\
+    \texttt{\textbackslash chemfig\{A-B\}}
+    & \texttt{\textbackslash chemfig\{A-B\}}\\
+    \hline
+  \end{tabular}
+  \vspace{1ex}
+
+\item \texttt{bond offset}:
+  
+  \vspace{-1ex}
+  Separación entre borde de caja de átomo y principio del dibujo del enlace.
+  
+  \begin{tabular}{|c|c|}\hline
+    \vphantom{\rule{0.4pt}{3ex}}
+    \chemfig[bond offset=0pt]{A-B}
+    & \chemfig[bond offset=5pt]{A-B}\\
+    \texttt{[\ttres{bond offset=0pt}]} & \texttt{[\ttres{bond offset=5pt}]}\\
+    \texttt{\textbackslash chemfig\{A-B\}}
+    & \texttt{\textbackslash chemfig\{A-B\}}\\
+    \hline
+  \end{tabular}
+  \vspace{1ex}
+  
+  Estas claves son globales a la fórmula y se utilizan para toda ella.
+  Si quisiéramos aplicar un espacio de separación diferente para un enlace determinado
+  en una fórmula, se debería añadir \texttt{\#} justo después del enlace.
+  
+  \vspace{1ex}
+  En adelante, cuando interese, evitaremos escribir el comando
+  \texttt{\textbackslash chemfig}, aunque sí escribir los corchetes o llaves que le
+  siguen con el fin de disminuir la anchura de las celdas de las tablas en los ejemplos.
+  Por el mismo motivo, si hubiera corchetes con opciones generales para la fórmula, se
+  pondrían en una línea diferente.
+
+  Si además, se especificara un valor global por defecto para la fórmula, aparecería
+  entre corchetes en la primera línea, como en los ejemplos siguientes utiliza una
+  distancia, entre borde de la caja y el inicio del dibujo del enlace, de $6pt$.
+
+  \vspace{1ex}
+  Si quisiéramos aplicar un espacio de separación diferente para un enlace determinado en
+  una fórmula, se añadiría \texttt{\#} justo después del enlace, seguido de un par de
+  distancias entre paréntesis y separadas por coma. Estas dos distancias indican el
+  espacio entre el borde de la caja del primer átomo hasta que se dibuja el enlace, y la
+  segundo es el espacio entre el final del enlace y el comienzo de la caja del segundo
+  átomo. Si no se especifica alguna de las distancias, se asumiría el valor por defecto.
+  
+  \vspace{1ex}
+  En el siguiente ejemplo se considera un valor de espaciado \emph{átomo--enlace} de
+  \texttt{6pt}, lo que se refleja en la primera línea de la tabla.
+  
+  En la fórmula de la izquierda, el primer enlace tiene un espaciado de $0pt$ al
+  principio y al final. En la segunda especificamos que el segundo enlace tenga un
+  espaciado de $2pt$ al final de este. En la tercera indicamos un espaciado de $2pt$ al
+  principio; cuando no se especifica nada para un enlace, se utilizan los \texttt{6pt}:
+  
+    \setchemfig{bond offset=6pt}
+    \begin{tabular}{|c|c|c|}\hline
+      \multicolumn{3}{|c|}{%
+      {\large\texttt{\textbackslash setchemfig\{bond offset=6pt\}}}
+      }\\\hline
+      \vphantom{$\dfrac{1}{1}$}
+      \chemfig{A-#(0pt,0pt)B-C}
+      & \chemfig{A-B-#(,2pt)C}
+      & \chemfig{A-B-#(2pt)C}\\
+      \texttt{\{A-\ttres{\#(0pt,0pt)}B-C\}}
+      & \texttt{\{A-B-\ttres{\#(,2pt)}C\}}
+      & \texttt{\{A-B-\ttres{\#(2pt)}C\}}\\
+      \hline
+    \end{tabular}
+
+  Por ejemplo, la fórmula de la izquierda se escribiría como
+  \begin{center}
+    \texttt{\textbackslash chemfig[bond offset=0pt]\{A-\#(0pt,0pt)B-C\}}
+  \end{center}
+
+  \vspace{1ex}
+\item \texttt{bond style}:
+
+  \vspace{-1ex}
+  A los enlaces de la fórmula se le aplican los estilos del paquete de dibujo
+  \textsf{TikZ}:
+
+  \begin{tabular}{|c|}\hline
+    \vphantom{\rule{0.4pt}{3ex}}
+    \chemfig[bond style={line width=1pt,Red}]{A>|B-C<:D}\\
+    \texttt{[\ttres{bond style=\{line width=1pt,red\}}]}\\
+    \texttt{\{A>|B=C-D<:E\}}\\
+    \hline
+  \end{tabular}
+%\end{itemize}
+
+  \begin{tabular}{|c|}\hline
+    \vphantom{\rule{0.4pt}{3ex}}
+    \chemfig[bond style={line width=1pt,dotted,red}]{A-B}\\
+    \texttt{[\ttres{bond style=\{line width=1pt,dotted,red\}}]}\\  
+    \texttt{\{A-B\}}\\
+    \hline
+  \end{tabular}
+\end{itemize}
+
+\subsection{Ángulos en los enlaces}
+Hasta ahora hemos dispuesto los enlaces horizontalmente, formando un ángulo de
+\qty{0}{\degree} medido desde el átomo de partida. Si no se especifica nada, este
+es el ángulo por defecto, pero podemos cambiarlo.
+
+Hay varias formas de especificar los ángulos:
+\begin{itemize}
+\item Por múltiplos de \qty{45}{\degree}, o lo que indique el parámetro
+  \texttt{angle increment}:
+
+  \vspace{-1ex}
+  En este caso, este indica el múltiplo de \qty{45}{\degree} que forma el ángulo con
+  respecto del átomo de partida. Este número se escribe entre corchetes:
+
+  \begin{tabular}{|c|c|c|c|}\hline
+    \vphantom{\rule{0.4pt}{10ex}}
+    \chemfig{A-B}
+    & \chemfig{A-[1]B}
+    & \chemfig{A-[2]B}
+    & \chemfig{A-[3]B}\\
+    {\footnotesize\texttt{\{A-B\}}}
+    & {\footnotesize\texttt{\{A-\ttres{[1]}B\}}}
+    & {\footnotesize\texttt{\{A-\ttres{[2]}B\}}}
+    & {\footnotesize\texttt{\{A-\ttres{[3]}B\}}}\\
+    $\ttres{0}\cdot\qty{45}{\degree} = \qty{0}{\degree}$
+    & {\small $\ttres{1}\cdot\qty{45}{\degree} = \qty{45}{\degree}$}
+    & {\small $\ttres{2}cdot\qty{45}{\degree} = \qty{90}{\degree}$}
+    & {\small $\ttres{3}\cdot\qty{45}{\degree} = \qty{135}{\degree}$}
+    \\\hline
+  \end{tabular}
+
+  \begin{tabular}{|c|c|c|c|}\hline
+    \vphantom{\rule{0.4pt}{3ex}}
+    \chemfig{A-[4]B}
+    & \chemfig{A-[5]B}
+    & \chemfig{A-[6]B}
+    & \chemfig{A-[7]B}\\
+    \texttt{\{A-\ttres{[4]}B\}}
+    & \texttt{\{A-\ttres{[5]}B\}}
+    & \texttt{\{A-\ttres{[6]}B\}}
+    & \texttt{\{A-\ttres{[7]}B\}}\\
+    {\small $\ttres{4}\cdot\qty{45}{\degree} = \qty{180}{\degree}$}
+    & {\small $\ttres{5}\cdot\qty{45}{\degree} = \cdots = \qty{-135}{\degree}$}
+    & {\small $\ttres{6}\cdot\qty{45}{\degree} = \cdots = \qty{-90}{\degree}$}
+    & {\small $\ttres{7}\cdot\qty{45}{\degree} = \cdots = \qty{-45}{\degree}$}
+    \\\hline
+  \end{tabular}
+  \vspace{1ex}
+
+\item Ángulos absolutos:
+
+  \vspace{-1ex}
+  El ángulo absoluto se escribe entre corchetes precedido de dos puntos.
+  
+  Ejemplos:
+
+  \begin{tabular}{|c|}\hline
+    \vphantom{\rule{0.4pt}{5ex}}
+    \chemfig{A-B-[:-45]C-D-[:90]E}\\
+    \vphantom{\rule{0.4pt}{3ex}}
+    \texttt{[atom sep=2em]}\\
+    \{A-B-\ttres{[:-45]}C-D-\ttres{[:90]}E\}\\
+    \hline
+  \end{tabular}
+
+  \begin{tabular}{|c|c|}\hline
+    \vphantom{\rule{0.4pt}{5ex}}
+    \chemfig[atom sep=2em]{-[:30]-[:-30]-[:-90]-[:-150]-[:150]-[:90]}\\
+    \texttt{[atom sep=2em]}\\ \{-\ttres{[:30]}-\ttres{[:-30]}-\ttres{[:-90]}-\ttres{[:-150]}-\ttres{[:150]}-\ttres{[:90]}\}\\
+    \hline
+  \end{tabular}
+
+\item Ángulos relativos:
+
+  \vspace{-1ex}
+  El ángulo relativo de un enlace, con respecto al anterior, se escribe entre corchetes
+  precedido de doble carácter de dos puntos. El primer ángulo debe ser absoluto.
+  
+  Ejemplos:
+
+  \begin{tabular}{|c|}\hline
+    \vphantom{\rule{0.4pt}{8ex}}
+    \chemfig[atom sep=3em]{A-B-[::-45]C=[::135]D}\\
+    \vphantom{\rule{0.4pt}{3ex}}
+    \texttt{[atom sep=3em]}\\
+    \texttt{\{A-B-\ttres{[::-45]}C=\ttres{[::135]}D\}}\\
+    \hline
+  \end{tabular}
+
+  \begin{tabular}{|c|}\hline
+    \vphantom{\rule{0.4pt}{8ex}}
+    \chemfig[atom sep=3em]{-[:36]-[::-72]-[::-72]-[::-72]-[::-72]}\\
+    \vphantom{\rule{0.4pt}{3ex}}
+    \texttt{[atom sep=3em]}\\
+    \texttt{\{-[:-36]-\ttres{[::-72]}-\ttres{[::-72]}-\ttres{[::-72]}-\ttres{[::-72]}\}}\\
+    \hline
+  \end{tabular}
+  
+\end{itemize}
+
+
+\subsection{Longitud de los enlaces}
+Vimos anteriormente que, en lugar de longitud de enlace, deberíamos hablar de espaciado
+interatómico (distancia entre los centros de las cajas, \texttt{atom sep}).
+Este espaciado es el que tiene en cuenta por defecto y siempre que
+\texttt{fixed length=false}. De esta manera \textsf{chemfig} utiliza un espaciado
+interatómico fijo y la longitud de enlace se amolda a ello y al valor de
+\texttt{bond offset} (imagen de la izquierda).
+
+En cambio, si \texttt{fixed length=true}, entonces \texttt{atom sep} se interpreta como
+distancia mínima entre los bordes de las cajas de los átomos que se unen (imagen de la
+derecha).
+
+\begin{center}
+  \begin{tabular}{c@{\kern1.50cm}c}
+    \CFkv{fixed length}{false}&\CFkv{fixed length}{true}\\[2ex]
+    \begin{tikzpicture}[%
+      every node/.style={anchor=base,inner sep=1.5pt,outer sep=0pt, minimum size=0pt},
+      baseline
+      ]
+      \node[draw] at(0,0)(aa){\huge A};
+      \node[draw]at(4,0)(bb){\huge B};
+      \path[shorten <=10pt,shorten >=10pt,draw]
+      (aa)--(bb)coordinate[pos=0](al) coordinate[pos=1](bl);
+      \node[draw,circle,fill,blue,minimum size=1.5pt,inner sep=0pt]at(al){};
+      \node[draw,circle,fill,blue,minimum size=1.5pt,inner sep=0pt]
+      at([xshift=10pt]al){};
+      \node[draw,circle,fill,blue,minimum size=1.5pt,inner sep=0pt]at(bl){};
+      \node[draw,circle,fill,blue,minimum size=1.5pt,inner sep=0pt]
+      at([xshift=-10pt]bl){};
+      \draw[blue,dash pattern=on 1pt off 1pt](bl)--([yshift=0.7cm]bl);
+      \draw[blue,dash pattern=on 1pt off 1pt]
+      ([xshift=-10pt]bl)--([xshift=-10pt,yshift=0.7cm]bl);
+      \draw[stealth-stealth]
+      ([yshift=0.6cm]bl.center)--([xshift=-10pt,yshift=0.6cm]bl.center)
+      node [midway,above,draw=none]{$\delta$};
+      \draw[blue,dash pattern=on 1pt off 1pt](al)--([yshift=0.7cm]al);
+      \draw[blue,dash pattern=on 1pt off 1pt]
+      ([xshift=10pt]al)--([xshift=10pt,yshift=0.7cm]al);
+      \draw[stealth-stealth]
+      ([yshift=0.6cm]al.center)--([xshift=10pt,yshift=0.6cm]al.center)
+      node [midway,above,draw=none]{$\delta$};
+      \node[draw,circle,fill,red,minimum size=2pt,inner sep=0pt]at(aa){};
+      \node[draw,circle,fill,red,minimum size=2pt,inner sep=0pt]at(bb){};
+      \draw[stealth-stealth]
+      ([yshift=1cm]aa.center)--([yshift=1cm]bb.center)
+      node [midway,above,draw=none] {$\Delta$} ;
+      \draw[red,dash pattern=on 2pt off2pt](aa.center)--([yshift=1.1cm]aa.center);
+      \draw[red,dash pattern=on 2pt off2pt](bb.center)--([yshift=1.1cm]bb.center);
+    \end{tikzpicture}
+  &
+    \begin{tikzpicture}[%
+      every node/.style={anchor=base,inner sep=1.5pt,outer sep=0pt,minimum size=0pt},
+      baseline]
+      \node[draw] at(0,0)(aa){\huge A};
+      \node[draw]at(5,0)(bb){\huge B};
+      \path[shorten <=10pt,shorten >=10pt,draw]
+      (aa)--(bb)coordinate[pos=0](al) coordinate[pos=1](bl);
+      \node[draw,circle,fill,blue,minimum size=1.5pt,inner sep=0pt]at(al){};
+      \node[draw,circle,fill,blue,minimum size=1.5pt,inner sep=0pt]
+      at([xshift=10pt]al){};
+      \node[draw,circle,fill,blue,minimum size=1.5pt,inner sep=0pt]at(bl){};
+      \node[draw,circle,fill,blue,minimum size=1.5pt,inner sep=0pt]
+      at([xshift=-10pt]bl){};
+      \draw[blue,dash pattern=on 1pt off 1pt](bl)--([yshift=0.7cm]bl);
+      \draw[blue,dash pattern=on 1pt off 1pt]
+      ([xshift=-10pt]bl)--([xshift=-10pt,yshift=0.7cm]bl);
+      \draw[stealth-stealth]
+      ([yshift=0.6cm]bl.center)--([xshift=-10pt,yshift=0.6cm]bl.center)
+      node [midway,above,draw=none]{$\delta$};
+      \draw[blue,dash pattern=on 1pt off 1pt](al)--([yshift=0.7cm]al);
+      \draw[blue,dash pattern=on 1pt off 1pt]
+      ([xshift=10pt]al)--([xshift=10pt,yshift=0.7cm]al);
+      \draw[stealth-stealth]
+      ([yshift=0.6cm]al.center)--([xshift=10pt,yshift=0.6cm]al.center)
+      node [midway,above,draw=none]{$\delta$};
+      \draw[stealth-stealth]([yshift=1cm]al)--([yshift=1cm]bl)
+      node [midway,above,draw=none] {$\Delta$} ;
+      \draw[red,dash pattern=on 2pt off2pt](al)--([yshift=1.1cm]al);
+      \draw[red,dash pattern=on 2pt off2pt](bl)--([yshift=1.1cm]bl);
+    \end{tikzpicture}
+  \end{tabular}
+\end{center}
+
+\vspace{1ex}
+En el siguiente ejemplo, los átomos en la molécula de yodo entre sí y los de \ce{H3} con
+\ce{C}, están situados a la misma distancia y, como consecuencia, la longitud de enlace
+es diferente:
+
+\begin{tabular}{|c|c|}\hline
+  \multicolumn{2}{|c|}{\ttres{fixed length=false}}\\\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig{I-I}
+  & \chemfig{CH_3-CH_3}\\
+  \texttt{\textbackslash chemfig\{I-I\}}
+  & \texttt{\textbackslash chemfig\{CH\_3-CH\_3\}}\\\hline
+\end{tabular}
+
+\vspace{1ex}
+Comparamos el resultado de los comandos anteriores, situando las dos fórmulas en filas
+diferentes y observamos que las distancias entre los centros de las cajas es la misma:
+
+\begin{center}
+  \begin{tabular}{|c|}\hline
+    \vphantom{\rule{0.4pt}{3ex}}
+    \chemfig{I-I}\\
+    \chemfig{CH_3-CH_3}\\[1ex]
+    \hline
+  \end{tabular}
+\end{center}
+
+Pero, cuando indicamos \texttt{fixed length=true}, la longitud de enlace es relativamente
+constante, aunque depende además, de la inclinación del enlace y del tamaño del átomo.
+Para la longitud del enlace se toma la distancia definida en \texttt{atom sep=<dim>}:
+
+\begin{tabular}{|c|c|}\hline
+  \multicolumn{2}{|c|}{\ttres{fixed length=true}}\\\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig[fixed length=true]{I-I}
+  & \chemfig[fixed length=true]{CH_3-CH_3}\\
+  \texttt{\textbackslash chemfig\{I-I\}}
+  & \texttt{\textbackslash chemfig\{CH\_3-CH\_3\}}\\\hline
+\end{tabular}
+
+\vspace{1ex}
+Comparamos de nuevo las dos fórmulas y vemos que ahora la distancia entre los bordes
+de las cajas es la misma, y si \texttt{bond offset} es idéntico en ambas, como en
+el ejemplo, el enlace tiene la misma longitud:
+
+\begin{center}
+  \begin{tabular}{|c|}\hline
+    \vphantom{\rule{0.4pt}{3ex}}
+    \chemfig[fixed length=true]{I-I}\\
+    \chemfig[fixed length=true]{CH_3-CH_3}\\[1ex]
+    \hline
+\end{tabular}
+\end{center}
+
+\vspace{1ex}
+Incluso con \texttt{fixed length=true}, cuando los átomos se encuentran en un ciclo,
+no se respeta tal condición, sino que se da prioridad a la distancia interatómica
+constante, para que el ciclo sea regular, siempre que se pueda.
+
+En algunas situaciones, especialmente, cuando \textsf{chemfig} tiene el comportamiento
+por defecto (\texttt{fixed length=false}), pueden formarse enlaces muy cortos y se
+necesitaría aumentar (o disminuir) la distancia interatómica en algún enlace concreto.
+Para ello, no vale \texttt{\textbackslash chemfig[atom sep=valor]\{...\}}, porque
+afectaría a todos los enlaces de la molécula.
+
+Se puede indicar esa distancia en un enlace concreto añadiendo argumentos entre
+corchetes. Ya vimos que el primer argumento indicaba el ángulo que formaba el enlace.
+Un segundo argumento, separado del primero por una coma, indica la distancia
+interatómica. Este argumento es un número entero positivo, que indica el factor por
+el que se multiplica la distancia interatómica.
+
+En el ejemplo de la izquierda, el primer átomo, \ce{A_2^{2+}}, es muy ancho y el centro
+de su caja provoca que el enlace sea muy corto, que se ve en la figura de la izquierda.
+
+En el ejemplo de la derecha, el enlace sencillo viene acompañado del corchete
+\texttt{[,2]}. El primer argumento está vacío, por lo que se utilizará para el enlace el
+ángulo por defecto, \qty{0}{\degree}. El segundo argumento es un $2$, lo que indica que
+la distancia interatómica para ese enlace es el doble de la especificada en
+\texttt{atom sep}.
+
+\begin{tabular}{|c|c|}\hline
+  \multicolumn{2}{|c|}{\texttt{fixed length=false}}\\\hline  
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig{{A_2}^{2+}-B_3}
+  & \chemfig{{A_2}^{2+}-[,2]B_3}\\
+  \texttt{\{\{A\_2\}\textasciicircum\{2+\}-B\_3\}}
+  & \texttt{\{A\_2\}\textasciicircum\{2+\}-\ttres{[,2]}B\_3\}}\\\hline
+\end{tabular}
+
+\subsection{Tamaño de las fórmulas}
+Podemos cambiar el tamaño de las moléculas cambiando el tamaño de la fuente, los
+enlaces se escalan de forma apropiada si \texttt{atom sep} se ha definido en función
+de la fuente, por ejemplo \text{em} o \text{ex}. Porque estas unidades dependen de
+la fuente elegida.
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{7ex}}
+  \chemfig{H-[:37]O-[::-72]H}
+  & {\small\chemfig{H-[:37]O-[::-72]H}}\\
+  {\small\texttt{\textbackslash chemfig\{\{H-[:37]O-[::-72]H\}\}}}
+  & {\small\texttt{\ttres{\{\textbackslash small}\textbackslash chemfig\{\{H-[:37]O-[::-72]H\}\}}\ttres{\}}}\\
+  \hline
+\end{tabular}
+
+
+\subsection{Átomos de salida y llegada}
+Un grupo de átomos suele estar formado por varios átomos, como \ce{CH3}, que está
+formado por los \emph{átomos} \ce{C} y \ce{H3}. Supongamos que nos interesa unir
+mediante enlaces dos grupos de átomos, digamos \ce{ABCD} y \ce{EFG}. Por defecto,
+\textsf{chemfig} intentará unir los átomos que tenga más cerca dependiendo del ángulo que
+se especifique.
+
+En el ejemplo de la izquierda, el enlace une los átomos más cercanos \ce{C} y \ce{D}.
+En el centro, se unen \ce{C} y \ce{D}. A la derecha se unen \ce{A} y \ce{F}:
+
+\begin{tabular}{|c|c|c|}\hline
+  \vphantom{\rule{0.4pt}{6ex}}
+  \chemfig{ABC-DEF}
+  & \chemfig{ABC-[:30]DEF}
+  & \chemfig{ABC-[:150]DEF}\\
+  \texttt{\{ABC-DEF\}\}}
+  &\texttt{\{ABC-[:30]DEF\}\}}
+  & \texttt{\{ABC-[:150]DEF\}\}}\\
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+¿Cómo podríamos obligar a \textsf{chemfig} a unir átomos distintos a los que elige por
+defecto?
+Ya hemos visto dos argumentos para modificar un  enlace particular, el primero era el
+ángulo del enlace, el segundo es el factor que afecta a \texttt{atom sep}, el tercero
+indica el átomo desde el que sale el enlace y el cuarto el átomo al que llega.
+Los átomos de salida y llegada se indican mediante números naturales:
+\begin{center}
+  {\small
+    \texttt{"enlace"%
+      [ángulo, distancia entre átomos, \emph{átomo de salida}, \emph{átomo de
+        llegada]}
+    }
+  }
+\end{center}
+
+En el ejemplo de la izquierda, se unen por defecto los átomos \ce{C} y \ce{D} por que
+se encuentran más cerca entre sí; en cambio, a la derecha obligamos a que el primer átomo
+de cada uno de los grupos sean los que se enlacen:
+ 
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{10ex}}
+  \chemfig{ABC-[:60]DEF}
+  & \chemfig{ABC-[:60,,1,1]DEF}\\
+  \texttt{\{ABC-[:60]DEF\}\}}
+  & \texttt{\{ABC-[:60\ttres{,,1,1}]DEF\}}\\\hline
+\end{tabular}
+
+\vspace{1ex}
+Otro ejemplo:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{10ex}}
+  \chemfig{ABC-[:135]DEF}
+  & \chemfig{ABC-[3,,2,3]DEF}\\
+  \texttt{\{ABC-[:135]DEF\}}
+  & \texttt{\{ABC-[3\ttres{,,2,3}]DEF\}}\\\hline
+\end{tabular}
+
+Por supuesto, 3 en el parámetro de ángulo de enlace es equivalente a un ángulo de
+\qty{135}{\degree}, siempre que \texttt{angle increment=45}.
+
+\subsection{Personalización mediante \textsf{TikZ}}
+Hay un quinto argumento para personalizar un enlace: \texttt{[,,,,<\textsf{TikZ}>]}.
+Veamos unos ejemplos:
+
+\begin{tabular}{|cl|}\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig{A-[,,,,line width=1.4pt,red]B}
+  & \texttt{\{A-[,,,,line width=1.2pt,red]B\}}\\\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig{A-[,,,,line width=0.8pt,dash pattern=on 2pt off 2pt,blue]B}
+  & {\small
+    \texttt{\{A-[,,,,line width=0.8pt,dash pattern=on 2pt off 2pt]B\}}}\\\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig{A-[,1.5,,,decorate,decoration=snake]B}
+  & \texttt{\{A-[,2,,,decorate,decoration=snake]B\}}\\\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig{A-[,1.4,,,decorate,decoration=coil,segment length=0.3em]B}
+  & {\footnotesize
+    \texttt{\{A-[,1.4,,,decorate,decoration=coil,segment length=0.3em]B\}}}\\\hline
+\end{tabular}
+
+
+\subsection{Conectando enlaces}
+Cuando se unen enlaces entre sí, no se ajustan perfectamente, sobre todo esto es
+visible cuando el grosor del enlace es grande. Para que se unan perfectamente hay que
+añadir \texttt{bond join=true} o simplemente \texttt{bond join}.
+
+Veamos los siguientes ejemplos. En el primero unimos los dos enlaces y parece que todo
+está bien. En el segundo ampliamos el grosor de las líneas y comprobamos que no forman
+una unión completa. En el tercero, añadimos \texttt{bond join=true}, utilizando una
+anchura de línea grande y comprobamos que la unión forma un vértice perfecto. En el
+cuarto, utilizamos el grosor por defecto del enlace, e incluso escribimos
+\texttt{bond join}, sin el \texttt{=true}:
+
+\begin{tabular}{|cl|}\hline
+  \vphantom{\rule{0.4pt}{6ex}}
+  \chemfig{-[:45]-[::-90]}
+  & \texttt{\textbackslash chemfig\{-[:45]-[::-90]\}}\\\hline
+  \vphantom{\rule{0.4pt}{6ex}}
+  \chemfig[bond style={line width=3.5pt}]{-[:45]-[::-90]}
+  & \texttt{[bond style=\{line width=3.5pt\}]\{-[:45]-[::-90]\}}\\\hline
+  \vphantom{\rule{0.4pt}{6ex}}
+  \chemfig[\ttres{bond join=true},bond style={line width=3.5pt}]{-[:45]-[::-90]}
+  & {\footnotesize
+    \texttt{[\ttres{bond join=true},bond style=\{line width=3.5pt\}]\{-[:45]-[::-90]\}}}\\\hline
+  \vphantom{\rule{0.4pt}{6ex}}
+  \chemfig[bond join]{-[:45]-[::-90]}
+  & \texttt{[bond join]\{-[:45]-[::-90]\}}\\\hline
+\end{tabular}
+
+
+\subsection{Valores por defecto para los enlaces}
+Las propiedades de los enlaces están determinadas por cinco parámetros:
+\begin{center}
+  \texttt{[ángulo, coeficiente, salida, llegada, TikZ]}
+\end{center}
+
+Por defecto, \textsf{chemfig} utiliza los siguientes valores:
+\begin{enumerate}
+\item Primera posición, ángulo: \qty{0}{\degree}
+
+  \vspace{-1ex}
+  El enlace se dirige de izquierda a derecha.
+  
+\item Segunda posición, coeficiente: 1
+
+  \vspace{-1ex}
+  La distancia entre los átomos o la longitud del enlace es
+  1 multiplicado por la distancia especificada para \texttt{atom sep} (dependiendo del
+  valor de \texttt{fixed length}).
+  
+\item Tercer y cuarta posiciones, átomos de salida y llegada: \rule[0.5ex]{1.5em}{0.6pt}
+
+  \vspace{-1ex}
+  Lo que indica que el enlace se dirige
+  entre los dos átomos más cercanos, teniendo en cuenta el ángulo que forma el enlace.
+  
+\item Quinta posición, estilo TikZ: \rule[0.5ex]{1.5em}{0.6pt}
+
+  \vspace{-1ex}
+  No añade ningún estilo especial de \textsf{TikZ}.
+\end{enumerate}
+
+\vspace{1ex}
+Podemos modificar estos valores, especificando entre corchetes los valores que queremos
+cambiar, respetando el orden de las comas:
+\begin{itemize}
+\item Para un enlace concreto de una molécula, justo después del enlace.  
+\item Para todos los enlaces de una molécula en particular, al principio del comando
+  \texttt{\textbackslash chemfig}, justo después de la llave de apertura "\texttt{\{}".
+\end{itemize}
+
+\vspace{1ex}
+En el primer ejemplo, especificamos un ángulo de enlace, distancia interatómica y color
+para el enlace entre \ce{A} y \ce{B}, que no afecta al segundo enlace, entre \ce{B} y
+\ce{C}.
+
+\begin{tabular}{|cl|}\hline
+  \vphantom{\rule{0.4pt}{6ex}}
+  \chemfig{A-[:15,2,,,,red]B-C}
+  & \texttt{\textbackslash chemfig\{A-\ttres{[:15,2,,,,red]}B-C\}}\\
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+En el segundo ejemplo, definimos color rojo para los enlaces de la molécula al principio
+del comando, por lo que afectará a todos los enlaces, excepto a los enlaces que se
+cambien explícitamente. En este ejemplo, para el doble enlace indicamos color verde y el
+último enlace vuelve a ser rojo, como habíamos indicado por defecto en esta molécula:
+    
+\begin{tabular}{|cl|}\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig{[,,,,red]A-B=[,,,,green]C-D}
+  & \texttt{\textbackslash chemfig\{\ttres{[,,,,red]}A-B=\ttresg{[,,,,green]}C-D\}}\\[0.5ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+En el tercer ejemplo, definimos un ángulo de enlace absoluto de \qty{15}{\degree} y una distancia interatómica un \qty{75}{\percent} para toda la fórmula:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{6.5ex}}
+  \chemfig{A-B-C}
+  & \chemfig{[:15,0.75]A-B-C}\\
+  \texttt{\textbackslash chemfig\{A-B-C\}}
+  & \texttt{\textbackslash chemfig\{\ttres{[:15,0.75]}A-B-C\}}\\
+  \hline
+\end{tabular}
+
+\subsection{Ramificaciones}
+Hasta ahora, las fórmulas las hemos escrito de forma que los grupos de átomos se unían
+en línea, unos después de otros, formando una cadena abierta horizontal, vertical,
+formando un cierto ángulo o una línea quebrada.
+
+Pero se pueden añadir \emph{ramificaciones} a las cadenas anteriores (esto también
+servirá para las ramificaciones en los ciclos, cuando los veamos).
+¿Cómo se añaden estas? Insertando entre paréntesis, justo después del átomo que sufre la
+ramificación un enlace, posibles parámetros que le afecten y los átomos involucrados.
+
+En el primer ejemplo representamos una cadena lineal genérica \ce{A-B-C}.
+A su derecha añadimos en el segundo átomo de la cadena, la ramificación
+\texttt{-[2]W-X}, que se encierra entre paréntesis (recordemos que el número 2, como
+primer parámetro indica que la ramificación forma un ángulo absoluto de
+$2\cdot\qty{45}{\degree}=\qty{90}{\degree}$.
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{10ex}}
+  \chemfig{A-B-C}
+  & \chemfig{A-B(-[2,,,,red]\ttres{W}-[,,,,red]\ttres{X})-C}\\
+  \texttt{\{A-B-C\}}
+  & \texttt{\{A-B\ttres{(-[2]W-X)}-C\}}\\
+  \hline
+\end{tabular}
+
+donde la ramificación se ha señalado en rojo.
+
+\vspace{1ex}
+Se recomienda escribir el código de la cadena base que nos interesa, y cuando comprobemos
+que produce la estructura correcta, entonces insertar paréntesis de apertura y cierre
+después del átomo que sufre la ramificación y, por último completar esta.
+
+Aunque la fórmula anterior se ha escrito y se lee fácilmente, suele ser recomendable
+dibujar la estructura base (que no necesariamente la cadena principal tal y como se
+define en formulación orgánica, pues aquí no nos importan los enlaces múltiples, entre
+otras cosas) que tenga más átomos, y el resto como ramificaciones; deesta forma
+disminuimos el número de ellas o la longitud de estas, que son situaciones que en
+fórmulas complejas pueden complicar la lectura del código fuente.
+
+Según este criterio, la fórmula anterior se podría haber escrito de varias formas;
+una de ellas es representar la estructura base de cuatro átomos
+\ce{A-B-W-X}, y añadir como ramificación la \ce{C}. De nuevo se señala la ramificación
+en rojo:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{10ex}}
+  \chemfig{A-B-[2]W-X}
+  & \chemfig{A-B(-[,,,,red]\ttres{C})-[2]W-X}\\
+  \texttt{%
+  \textbackslash chemfig\{A-B-[2]W-X\}
+  }
+  & \texttt{%
+    \textbackslash chemfig\{%
+    \{A-B\ttres{(-C)}-[2]W-X}\\\hline
+\end{tabular}
+
 
 
 
