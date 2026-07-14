@@ -1300,7 +1300,7 @@ En este ejemplo, el átomo \ce{A} es el primero que aparece en el comando
 
 \begin{tabular}{|l|}\hline
   \vphantom{\rule{0.4pt}{2.5ex}}
-  \vphantom{\chemfig{A-B}}\hspace{-3em}\tikz \draw[help lines, red,] (0,0) -- (5em,0);
+  \vphantom{\chemfig{A-B}}\tikz \draw[help lines, red,] (0,0) -- (5em,0);
   \chemfig{A-B}
   \tikz \draw[help lines, red] (0,0) -- (5em,0);
   \\[0.25ex]
@@ -1317,7 +1317,7 @@ invisible sin tamaño y su linea base es la misma que la del enlace que le sigue
 
 \begin{tabular}{|c|}\hline
   \vphantom{\rule{0.4pt}{2ex}}
-  \vphantom{\chemfig{-B}}\hspace{-2em}\tikz \draw[help lines, red] (0,0) -- (5em,0);
+  \vphantom{\chemfig{-B}}\tikz \draw[help lines, red] (0,0) -- (5em,0);
   \chemfig{-B}
   \tikz \draw[help lines, red] (0,0) -- (5em,0);
   \\[0.25ex]
@@ -1331,7 +1331,7 @@ En la siguiente fórmula hemos puesto \ce{A} como primer átomo:
 
 \begin{tabular}{|c|}\hline
   \vphantom{\rule{0.4pt}{2.5ex}}
-  \vphantom{\chemfig{A-[7]B}}\hspace{-2em}\tikz \draw[help lines, red] (0,0) -- (5em,0);
+  \vphantom{\chemfig{A-[7]B}}\tikz \draw[help lines, red] (0,0) -- (5em,0);
   \chemfig{A-[7]B}
   \tikz \draw[help lines, red] (0,0) -- (5em,0);
   \\[3.5ex]
@@ -1345,7 +1345,7 @@ Ahora repetimos la misma fórmula, pero dibujamos primero \ce{B}:
 
 \begin{tabular}{|c|}\hline
   \vphantom{\rule{0.4pt}{6ex}}
-  \vphantom{\chemfig{B-[3]A}}\hspace{-2em}\tikz \draw[help lines, red] (0,0) -- (5em,0);
+  \vphantom{\chemfig{B-[3]A}}\tikz \draw[help lines, red] (0,0) -- (5em,0);
   \chemfig{B-[3]A}
   \tikz \draw[help lines, red] (0,0) -- (5em,0);
   \\[0.25ex]
@@ -1362,7 +1362,7 @@ En el siguiente ejemplo, la línea base se sitúa $5pt$ por encima de la base de
 
 \begin{tabular}{|l|}\hline
   \vphantom{\rule{0.4pt}{2ex}}
-  \vphantom{\chemfig{A-B}}\hspace{-2.5em}\tikz \draw[help lines, red,] (0,0) -- (5em,0);
+  \vphantom{\chemfig{A-B}}\tikz \draw[help lines, red,] (0,0) -- (5em,0);
   \chemfig[baseline=5pt]{A-B}
   \tikz \draw[help lines, red] (0,0) -- (5em,0);
   \\[1.25ex]
@@ -1378,7 +1378,7 @@ Ahora se sitúa $5pt$ por debajo de la base del átomo:
 
 \begin{tabular}{|l|}\hline
   \vphantom{\rule{0.4pt}{4ex}}
-  \vphantom{\chemfig{A-B}}\hspace{-2.5em}\tikz \draw[help lines, red,] (0,0) -- (5em,0);
+  \vphantom{\chemfig{A-B}}\tikz \draw[help lines, red,] (0,0) -- (5em,0);
   \chemfig[baseline=-5pt]{A-B}
   \tikz \draw[help lines, red] (0,0) -- (5em,0);
   \\[1ex]
