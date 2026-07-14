@@ -242,6 +242,234 @@ razonables en el prólogo para todo el documento, y si quisiéramos personalizar
 sin afectar al resto de fórmulas.
 
 
+\section{Fórmulas sencillas}
+Para las fórmulas (y las reacciones químicas) sencillas se recomienda el paquete
+\textsf{mhchem}, que es más fácil de utilizar.
+Como primer ejemplo, veamos la fórmula molecular genérica de un alcano:
+
+\vspace{1ex}
+\begin{tabular}{|c|}\hline
+  \vphantom{$\dfrac{1}{1}$} 
+  \chemfig{C_nH_{2n+2}}\\
+  \texttt{\textbackslash chemfig\{C\_nH\_(2n+2)\}}\\\hline
+\end{tabular}
+
+\vspace{1ex}
+ Otras fórmulas:
+
+\begin{tabular}{|c|c|c|c|}\hline
+  \vphantom{$\dfrac{1}{1}$} 
+  \chemfig{NH_3}
+  & \ce{H2}
+  & \chemfig{CH_2=CH_2}
+  & \ce{CH2=CH2}\\
+  \texttt{\textbackslash chemfig\{NH\_3\}}
+  & \texttt{\textbackslash ce\{H2\}}                
+  & \texttt{\textbackslash chemfig\{CH\_2=CH\_2\}}
+  &\texttt{\textbackslash ce\{CH2=CH2\}}\\\hline
+\end{tabular}
+
+\vspace{2ex}
+ ¿Se podría arreglar la fórmula del eteno en \textsf{chemfig}? Sí:
+
+\vspace{1ex}
+\begin{tabular}{|c|c|}\hline
+  \vphantom{$\dfrac{1}{1}$} 
+  \chemfig[atom sep=1.8em]{CH_2=CH_2}
+  & \ce{CH2=CH2}\\
+  \texttt{\textbackslash chemfig\ttres{[atom sep=1.8em]}\{CH\_2=CH\_2\}}
+  &\texttt{\textbackslash ce\{CH2=CH2\}}\\\hline
+\end{tabular}
+
+Más adelante se propondrán unos valores por defecto para \textsf{chemfig}, si se
+considera que los que vienen con el paquete no nos interesan.
+
+\vspace{1ex}
+ Como se puede observar, cuesta más trabajo, aunque se puede ajustar mejor la
+distancia entre los átomos y por tanto, la longitud del enlace;
+en este ejemplo vemos un parámetro de la tabla \ref{tbl:chemfig_claves}, que especifica
+la distancia entre los \emph{átomos} que forman un enlace. Este valor es global para
+la fórmula, pero no afecta a otras fórmulas:
+\begin{center}
+  \texttt{atom sep=1.8em}
+\end{center}
+que se reducimos a casi la mitad de su valor por defecto \texttt{3em} y, como
+consecuencia, el enlace doble disminuye de tamaño.
+
+La solución, que veremos después, es modificar los valores por defecto para las
+distancias interatómicas y otros parámetros en el preámbulo del documento, con lo
+que no estaremos obligados a detallarlos en cada fórmula. De esa manera, solo tendremos
+que retocar algunos de ellos en fórmulas concretas cuando interese.
+
+\subsection{Estado de agregación}
+Se puede añadir el estado de agregación fuera del comando porque \textsf{chemfig} solo
+considera los elementos que forman la sustancia, y el estado de agregación no da esa
+información (aunque sí de cómo están agregados):
+
+\begin{tabular}{|c|c|c|}\hline
+  \vphantom{$\dfrac{1}{1}$}
+  \chemfig{Ca}(s)
+  & \ce{H2O(l)}
+  & \ce{He(g)}\\
+  \texttt{\textbackslash chemfig\{Ca\}}\ttres{(s)}
+  & \texttt{\textbackslash ce\{H2O\}(l)}
+  & \texttt{\textbackslash ce\{He(g)\}}\\\hline
+\end{tabular}
+
+\subsection{Sales con paréntesis}
+En \textsf{chemfig} es necesario encerrar los paréntesis entre llaves, pues por defecto,
+\textsf{chemfig} considera los paréntesis como una ramificación, como veremos más
+adelante.
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig{Ca{(NO_3)}_2}
+  & \chemfig{{(NH4)}_2SO_3}\\
+  \texttt{\textbackslash chemfig\{Ca\ttres{\{(NO\_3)\}}\_2\}}
+  & \texttt{\textbackslash chemfig\{\ttres{\{(NH\_4)\}}\_2SO\_3\}}\\\hline
+\end{tabular}
+
+\subsection{Iones}
+Como usuario de \LaTeX, ya sabes que lo primero que hay que tener en cuenta en
+\textsf{chemfig} es que las cargas de los iones se especifican como superíndices y
+deben escribirse después del acento circunflejo "\texttt{\textasciicircum}".
+Pero en \textsf{chemfig} hay que tener en cuenta más detalles.
+
+En la fórmula de la izquierda, el guión (o signo negativo) es interpretado por
+\textsf{chemfig} como un enlace sencillo que no puede aparecer como superíndice, por lo
+que se produce un error de compilación\footnotemark{}.
+Este error se indica, marcando en rojo sin resaltar, el código correspondiente.
+\footnotetext{Este problema no se presenta, sin embargo, con el signo "\texttt{+}" de una
+  carga positiva.}
+
+En la fórmula del centro esto se evita encerrando el guión entre llaves.
+Pero ahora surge otro problema, el resultado no sigue las indicaciones de la IUPAC porque
+se recomienda que la carga esté a la derecha de un subíndice. Este error se indica
+también en rojo sin resaltar.
+
+A la derecha, se escribe la fórmula correcta encerrando el grupo de átomos entre llaves.
+La solución correcta se señala en color rojo resaltado:
+
+ \begin{tabular}{|c|c|c|}\hline
+ \vphantom{\rule{0.4pt}{3ex}}
+  \texttt{Error} & \chemfig{NO_2^{-}} & \chemfig{{NO_2}^{-}}\\
+  \ttbad{\textbackslash chemfig\{NO\_2\textasciicircum -\}}
+  & \ttbad{\textbackslash chemfig\{NO\_2\textasciicircum \{-\}\}}
+  & \texttt{\textbackslash chemfig\{\ttres{\{NO\_2\}\textasciicircum \{-\}}\}}\\\hline
+\end{tabular}
+
+
+\vspace{1ex}
+Aunque una carga positiva no tiene el problema de la negativa, cuando la carga se
+especifica mediante varios caracteres, siempre hay que encerrarla entre llaves (no
+hace daño encerrar también una carga positiva entre llaves, aunque no es necesario):
+
+\begin{tabular}{|c|c|c|}\hline
+\vphantom{\rule{0.4pt}{3ex}}
+  \chemfig{S^{2-}} & \chemfig{Cu^{2+}} & \chemfig{{NO_2}^+}\\
+  \texttt{\textbackslash chemfig\{S\textasciicircum\{2-\}\}}
+  & \texttt{\textbackslash chemfig\{Cu\textasciicircum\{2+\}\}}
+  & \texttt{\textbackslash chemfig\{{NO\_2}\textasciicircum +\}}\\\hline
+\end{tabular}
+
+\vspace{1ex}
+Más ejemplos de iones. Aquí vemos que cuando la carga, independientemente de su signo,
+consta de más de un carácter, se debe encerrar entre llaves:
+
+%\vspace{1ex}
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig{{HPO_4}^{2-}}
+  & \chemfig{{Hg_2}^{2+}}\\
+  \texttt{\textbackslash chemfig\{\{HPO\_4\}\textasciicircum \{2-\}\}}
+  & \texttt{\textbackslash chemfig\{\{Hg\_2\}\textasciicircum \{2+\}\}}\\\hline
+\end{tabular}
+
+
+\subsection{Otros compuestos orgánicos sencillos}
+Veamos compuestos orgánicos que se representan en una línea y los compararemos con
+\textsf{mhchem}.
+En estos ejemplos hemos acortado la anchura de la primera celda, separando las opciones
+globales para la fórmula (entre corchetes), de la fórmula en el comando
+\texttt{\textbackslash chemfig}, para acortar la anchura de la celda.
+
+En el siguiente ejemplo, propeno, hemos utilizado otro clave de la tabla,
+\ref{tbl:chemfig_claves}, además de \texttt{atom sep}, que se usa para disminuir la
+distancia interatómica y la longitud de enlace\footnotemark{}:
+\footnotetext{Más adelante se explicarán con más detalle estos dos parámetros.}
+\begin{center}
+  \texttt{fixed length=true}, o simplemente, \texttt{fixed length}
+\end{center}
+que obliga a utilizar la misma longitud para todos los enlaces en la fórmula:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig[atom sep=1em,fixed length=true]{CH_2=CH-CH_3}
+  & \ce{CH2=CH-CH3}\\
+  \texttt{[atom sep=1em,\ttres{fixed length=true}]} & \\
+  \texttt{\textbackslash chemfig\{CH\_2=CH-CH\_3\}}
+  & \texttt{\textbackslash ce\{CH2=CH-CH3\}}\\
+  \hline
+\end{tabular}
+
+El comando completo de la izquierda sería:
+\begin{center}
+  \texttt{%
+    \textbackslash chemfig[atom sep=1em,fixed length=true]\{CH\_2=CH-CH\_3\}
+  }
+\end{center}
+Más adelante, simplificaremos más aún el código en las celdas, eliminando también el
+comando \texttt{\textbackslash chemfig}, que se supondrá implícito.
+
+\vspace{1ex}
+El siguiente ejemplo, 3-cloropropen-1-ol, no presenta más dificultad:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig[atom sep=1em, fixed length=true]{CHOH=CH-CH_2Cl}
+  & \ce{CHOH=CH-CH2Cl}\\
+  \texttt{[atom sep=1em, fixed length=true]} & \\
+  \texttt{\textbackslash chemfig\{CHOH=CH-CH\_2Cl\}}
+  & \texttt{\textbackslash ce\{CHOH=CH-CH\_2Cl\}}\\
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Un hidrocarburo genérico de cadena lineal:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig[atom sep=1em, fixed length=true]{CH_3-{(CH_2)}_n-CH_3}
+  & \ce{CH3-(CH2)_n-CH3}\\
+  \texttt{[atom sep=1em, fixed length=true]} & \\
+  \texttt{\textbackslash chemfig\{CH\_3-\{(CH\_2)\}\_n-CH\_3}
+  & \texttt{\textbackslash ce\{CH3-(CH2)\_n-CH3\}}\\
+  \hline
+\end{tabular}
+
+Vimos anteriormente que la razón  de tener que encerrar el paréntesis entre llaves de debe a la
+forma particular con que \textsf{chemfig} trata los elementos de una fórmula. Esta
+fórmula la interpreta \textsf{chemfig} formada por tres \emph{grupos de átomos}:
+"\texttt{CH\_3}", "\texttt{\{(CH\_2)\}\_n}" y "\texttt{CH\_3}".
+
+Después considera que el primer y el tercer grupo está formado por dos \emph{átomos},
+"\ce{C}" y "\ce{H3}", pero el segundo grupo, con paréntesis, no está formado por
+\emph{átomos}, porque \textsf{chemfig} no contempla la posibilidad de paréntesis, de
+hecho, el paréntesis se interpreta como una ramificación de enlaces y, para desactivarla
+hay que encerrar los paréntesis entre llaves.
+
+\vspace{1ex}
+Los enlaces triples se representan con la tilde, \texttt{\textasciitilde}:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.4pt}{3ex}}
+  \chemfig[atom sep=1.5em]{CH~CH}
+  & \ce{CH#CH}\\
+  \texttt{[atom sep=1.5em]} &\\
+  \texttt{\textbackslash chemfig\{CH\textasciitilde CH\}}
+  & \texttt{\textbackslash ce\{CH\#CH\}}\\
+  \hline
+\end{tabular}
 
 
 
