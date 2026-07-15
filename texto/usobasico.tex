@@ -2804,7 +2804,6 @@ cosa en \texttt{código tikz}, sería el centro de la carga.
 \end{center}
 }
 
-
 \vspace{-5ex}
 Es posible fijar algunos de los valores anteriores mediante:
 \begin{center}
@@ -2820,6 +2819,346 @@ La macro \texttt{\textbackslash charge} coloca las cargas fuera de la caja, mien
 que \texttt{\textbackslash Charge} las coloca dentro de ella.
 
 
+\subsection{Ejemplos sencillos con la macro \texttt{\textbackslash charge}}
+En este apartado veremos algunos ejemplos para familiarizarnos con
+\texttt{\textbackslash charge\{...\}}, orientados sobre todo a los diagramas de Lewis.
+Todo esto, incluso con otras cargas, se ampliarán en los apartados correspondientes
+de diagrama de Lewis y mecanismos de reacción.
+
+Pares de electrones solitarios representados por dos puntos, tal y como tiene
+\textsf{chemfig} por defecto. En la primera fórmula aparecen muy cerca del símbolo del
+nitrógeno:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.1pt}{3ex}}
+  {\large\chemfig{\charge{90=\:}{N}H_3}}
+  & {\large\chemfig{\charge{180=\:}{N}H_3}}\\
+  \texttt{\{\textbackslash charge\ttres{\{90=\textbackslash:\}\{N\}}H\_3\}}
+  & \texttt{\{\textbackslash charge\ttres{\{180=\textbackslash:\}\{N\}}H\_3\}}
+  \\[0.5ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Se puede aumentar la distancia para un par de puntos concreto de una fórmula:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.1pt}{3ex}}
+  {\large\chemfig{\charge{90:1.3pt=\:}{N}H_3}}
+  & {\large\chemfig{\charge{180:1.1pt=\:}{N}H_3}}\\
+  \texttt{%
+  \{\textbackslash charge\ttres{\{90\ttresg{:1.3pt}=\textbackslash:\}\{N\}}H\_3\}
+  }
+  & \texttt{%
+    \{\textbackslash charge\ttres{\{180\ttresg{:1.1pt}=\textbackslash:\}\{N\}}H\_3\}
+    }
+  \\[0.5ex]
+  \hline
+\end{tabular}
+
+
+\vspace{1ex}
+Se puede controlar individualmente el radio de los puntos:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{3ex}}
+  {\large\chemfig{\charge{90:1.3pt=\:[.radius=0.12ex]}{N}H_3}}\\
+  \texttt{%
+  \{\textbackslash charge\ttres{\{90:1.3pt=\textbackslash:\ttresg{[.radius=0.12ex]}\}\{N\}}H\_3\}
+  }
+  \\[0.5ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{3ex}}
+  {\large\chemfig{\charge{180:1.3pt=\:[.radius=0.12ex]}{N}H_3}}\\
+  \texttt{\{\textbackslash charge\ttres{\{180:1.3pt=\textbackslash:\ttresg{[.radius=0.12ex]}\}\{N\}}H\_3\}}
+  \\[0.5ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+El control puede ser para todos los pares de puntos de la fórmula, utilizando
+\texttt{\textbackslash setcharge\{...\}}, recordando que se puede revertir a la
+configuración de \texttt{\textbackslash charge} por defecto de \textsf{chemfig}
+utilizando después \texttt{\textbackslash resetcharge}:
+
+\setcharge{.radius=0.10ex}
+\begin{tabular}{|c|}\hline
+  \ttresg{\textbackslash setcharge\{.radius=0.10ex\}}\\\hline
+  \vphantom{\rule{0.1pt}{3ex}}
+  {\large\chemfig{\charge{90:1.3pt=\:}{N}~\charge{90:1.3pt=\:}{N}}}\\
+  \texttt{%
+  \{\textbackslash charge\ttres{\{90:1.1pt=\textbackslash:\}\{N\}\textasciitilde\textbackslash charge\{90:1.3pt=\:\}\{N\}}\}
+  }
+  \\[0.5ex]
+  \hline
+  Opcional: \texttt{\textbackslash resetcharge}\\\hline
+\end{tabular}
+\resetcharge
+
+\setcharge{.radius=0.16ex}
+\begin{tabular}{|c|}\hline
+  \ttresg{\textbackslash setcharge\{.radius=0.16ex\}}\\\hline
+  \vphantom{\rule{0.1pt}{3ex}}
+ {\large\chemfig{\charge{180:1.3pt=\:}{N}~\charge{0:1.3pt=\:}{N}}}\\
+  \texttt{%
+  \{\textbackslash charge\ttres{\{180:1.3pt=\textbackslash:\}\{N\}\textasciitilde\textbackslash charge\{0:1.3pt=\:\}\{N\}}\}
+  }
+  \\[0.5ex]
+  \hline
+  Opcional: \texttt{\textbackslash resetcharge}\\\hline  
+\end{tabular}
+\resetcharge
+
+\vspace{1ex}
+Pares de electrones solitarios representados por una línea, según los valore por
+defecto de \texttt{\textbackslash charge} en \texsf{chemfig}:
+
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.1pt}{3ex}}
+  {\large\chemfig{\charge{90=\|}{N}H_3}}
+  & {\large\chemfig{\charge{180=\|}{N}H_3}}\\
+  \texttt{\{\textbackslash charge\ttres{\{90:1.3pt=\textbackslash:\}\{N\}}H\_3\}}
+  & \texttt{\{\textbackslash charge\ttres{\{180:1.3pt=\textbackslash:\}\{N\}}H\_3\}}
+  \\[0.5ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Igual, pero la línea es más gruesa y más separada del nitrógeno:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{3ex}}
+  {\large\chemfig{\charge{90:1.3pt=\|[|style={line width=1.1pt}]}{N}H_3}}\\
+  \texttt{%
+  \{\textbackslash charge\ttres{\{90:1.3pt=\textbackslash:\ttresg{[|style=\{line width=1.1pt\}]}\}\{N\}}H\_3\}
+  }
+  \\[0.5ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{3ex}}
+  {\large\chemfig{\charge{180:1.3pt=\|[|style={line width=1.1pt}]}{N}H_3}}\\
+  \texttt{%
+  \{\textbackslash charge\ttres{\{180:1.3pt=\textbackslash:\ttresg{[|style=\{line width=1.1pt\}]}\}\{N\}}H\_3\}
+  }
+  \\[0.5ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+En los ejemplos anteriores hemos afectado a una carga en concreto.
+Ahora lo hacemos para toda la molécula:
+
+\setcharge{|style={draw=red,line width=1.1pt}}
+\begin{tabular}{|c|c|}\hline
+  \multicolumn{2}{|c|}{\ttresg{%
+  \textbackslash setcharge\{|style=\{draw=red,line width=1.1pt\}\}
+  }}\\\hline
+  \vphantom{\rule{0.1pt}{3.2ex}}
+  {\large\chemfig{\charge{90:1.3pt=\|}{N}H_3}}
+  & {\large\chemfig{\charge{180:1.3pt=\|}{N}H_3}}\\
+  \texttt{\{\textbackslash charge\ttres{\{90:1.3pt=\textbackslash:\}\{N\}}H\_3\}}
+  & \texttt{\{\textbackslash charge\ttres{\{180:1.3pt=\textbackslash:\}\{N\}}H\_3\}}
+  \\[0.5ex]
+  \hline
+  \multicolumn{2}{|c|}{Opcional: \texttt{\textbackslash resetcharge}}\\\hline  
+\end{tabular}
+\resetcharge
+
+\vspace{1ex}
+Como último ejemplo veremos otra forma de representar un par de electrones solitarios:
+
+\setcharge{|style={draw=red,line width=1.1pt}}
+\begin{tabular}{|c|c|}\hline
+  \vphantom{\rule{0.1pt}{3.2ex}}
+  {\large\chemfig{\charge{90:1.5pt=\"}{N}H_3}}
+  & {\large\chemfig{\charge{180:1.5pt=\"}{N}H_3}}\\
+  \texttt{\{\textbackslash charge\ttres{\{90:2pt=\textbackslash"\}\{N\}}H\_3\}}
+  & \texttt{\{\textbackslash charge\ttres{\{180:1.5pt=\textbackslash"\}\{N\}}H\_3\}}
+  \\[0.5ex]
+  \hline
+\end{tabular}
+\resetcharge
+
+\vspace{1ex}
+Por ejemplo, podemos rellenar el rectángulo de rojo:
+
+\setcharge{"width=0.5ex,"style={draw=red,fill=red}}
+\begin{tabular}{|c|c|}\hline
+  \multicolumn{2}{|c|}{\ttresg{%
+  \textbackslash setcharge\{"width=0.6ex,"style=\{width=6pt,draw=red,fill=red\}\}
+  }}\\\hline
+  \vphantom{\rule{0.1pt}{3.2ex}}
+  {\large\chemfig{\charge{90:1.5pt=\"}{N}H_3}}
+  & {\large\chemfig{\charge{180:1.5pt=\"}{N}H_3}}\\
+  \texttt{\{\textbackslash charge\ttres{\{90:1.5pt=\textbackslash"\}\{N\}}H\_3\}}
+  & \texttt{\{\textbackslash charge\ttres{\{180:1.5pt=\textbackslash"\}\{N\}}H\_3\}}
+  \\[0.5ex]
+  \hline
+  \multicolumn{2}{|c|}{\texttt{%
+  Opcional: \texttt{\textbackslash resetcharge\}}
+  }}\\\hline  
+\end{tabular}
+\resetcharge
+
+
+%\begin{tabular}{|c|c|}\hline
+%  \vphantom{\rule{0.1pt}{3ex}}
+%  {\large\chemfig{\chargeline{{90:2pt}{N}H_3}}}
+%  & {\large\chemfig{\charge{180:2pt=\|}{N}H_3}}\\
+%  \texttt{\{\textbackslash charge\ttres{\{90:2pt=\textbackslash:\}\{N\}}H\_3\}}
+%  & \texttt{\{\textbackslash charge\ttres{\{180:1.5pt=\textbackslash:\}\{N\}}H\_3\}}
+%  \\[1.4ex]
+%  \hline
+%\end{tabular}
+
+
+%\setcharge{lewis line width = 3pt}
+%\begin{tabular}{|c|c|}\hline
+%  \vphantom{\rule{0.1pt}{3ex}}
+%  {\large\chemfig{\charge{90:2pt=\"}{N}H_3}}
+%  & {\large\chemfig{\charge{180:2pt=\"}{N}H_3}}\\
+%  \texttt{\{\textbackslash charge\ttres{\{90:2pt=\textbackslash:\}\{N\}}H\_3\}}
+%  & \texttt{\{\textbackslash charge\ttres{\{180:1.5pt=\textbackslash:\}\{N\}}H\_3\}}
+%  \\[1.4ex]
+%  \hline
+%\end{tabular}
+%
+%\resetcharge
+
+%\section{Lewis}
+
+%{\Large
+%\begin{tabular}{|c|}\hline
+%  \vphantom{\rule{0.1pt}{3ex}}
+%  \chemfig{%
+%  \charge{90=\|,-90=\|,180=\|}{\kern0.2ex\vphantom{\rule[-0.2ex]{0.1pt}{2.1ex}}F}
+%  -
+%  \charge{90=\|,-90=\|,0=\|}{\vphantom{\rule[-0.2ex]{0.1pt}{2.1ex}}F\kern0.2ex}
+%  }\\[1.4ex]
+%  \hline
+%\end{tabular}
+%}
+%
+%{\Large
+%\begin{tabular}{|c|}\hline
+%  \vphantom{\rule{0.1pt}{3ex}}
+%  \chemfig{%
+%  \charge{90=\|,-90=\|,180=\|}{\kern0.2ex\vphantom{\rule[-0.2ex]{0.1pt}{2.1ex}}F}
+%  -
+%  \charge{90=\|,-90=\|,0=\|}{\vphantom{\rule[-0.2ex]{0.1pt}{2.1ex}}F\kern0.2ex}
+%  }\\[1.4ex]
+%  \hline
+%\end{tabular}
+%}
+%
+%{\Large
+%\begin{tabular}{|c|}\hline
+%  \vphantom{\rule{0.1pt}{3ex}}
+%  \chemfig{%
+%  \charge{90:2pt=\|,-90=\|,180=\|}{F} - \charge{90=\|,-90=\|,0=\|}{F}
+%  }\\[1.4ex]
+%  \hline
+%\end{tabular}
+%}
+
+
+
+%\newcommand{\pairspace}{\kern0.2ex\vphantom{\rule[-0.2ex]{0.1pt}{2.1ex}}
+
+%\section{Desplazamientos electrónicos}
+%Para representar desplazamientos electrónicos se marcan los puntos de salida y de llegada
+%mediante una flecha, utilizando “\texttt{@{<argumento>}}”. Esta sintaxis permite situar
+%un nodo en esos puntos y que luego se recuerden en el comando
+%\texttt{\textbackslash chemfig}. La única condición es que el visor del fichero sea
+%compatible con \emph{picture remembering} y que se compile dos veces el texto fuente.
+%
+%Se pueden conseguir dos tipos de nodos:
+%\begin{itemize}
+%\item Uno, en los enlaces, mediante “@{<nombre>,<coeficiente>}”, situado justo antes del
+%  enlace al que hace referencia con el nombre y el coeficiente es opcional, un número
+%  entre cero y uno, que por defecto vale 0.5 e indica que el nodo se encuentra en la mitad
+%  del enlace.
+%\item Otro, en los átomos, mediante "@(<nombre>)", justo antes del átomo al que hace
+%  referencia con el nombre.
+%\end{itemize}
+%
+%Una vez que el comando \texttt{\textbackslash} ha dibujado la(s) molécula(s) y ha
+%situado los nodos con la sintaxis arriba descrita, podremos conectarlos con instrucciones
+%\textsf{TikZ}. Estas últimas instrucciones se realizan mediante el comando
+%\texttt{\textbackslash chemmove} y se utiliza la siguiente sintaxis, si por ejemplo,
+%queremos conectar un nodo \texttt{n1} con otro \texttt{n2}, utilizamos la orden
+%\begin{center}
+%  \texttt{%
+%    \textbackslash chemmove[opt]\{\textbackslash draw[tikz opt] (n1) enlace\_tikz (n1);\}
+%  }
+%\end{center}
+%
+%El argumento opcional \texttt{opt} del comando \texttt{\textbackslash chemfig} se
+%añadirá al argumento del entorno donde se conectarán de alguna manera los nodos.
+%El \texttt{<tikz opt>} y el \texttt{enlace\_tikz} son instrucciones y se describen con
+%detalle en el paquete \textsf{TikZ}.
+%
+%\subsection{Efecto mesómero}
+%Para concretar estos conceptos, pondremos un ejemplo de efecto mesómero con un doble
+%enlace y un par solitario conjugado no enlazado:
+%
+%\begin{tabular}{|c|}\hline
+%  \vphantom{\rule{0.4pt}{5ex}}
+%  \schemestart
+%  \chemfig{@{a1}=_[@{db}::30]-[::-60]\charge{90=\|}{X}}
+%  \arrow{<->}
+%  \chemfig{%
+%  \chemabove{\vphantom{X}}{\ominus}-[::30]=_[::-60]
+%  \chemabove{X}{\scriptstyle\oplus}}
+%  \schemestop
+%  \chemmove{%
+%  \draw(db).. controls +(100:5mm) and +(145:5mm).. (a1);
+%  }\\[2ex]
+%  \hline
+%\end{tabular}
+%
+%\begin{tabular}{|@{\hspace{-1em}}l|}\hline
+%  \vphantom{\rule{0.4pt}{7ex}}
+%  \begin{lstlisting}[basicstyle=\ttfamily\small,language=TeX]
+%    \schemestart
+%    \chemfig{@{a1}=_[@{db}::30]-[::-60]\charge{90=\|}{X}}
+%    \arrow{<->}
+%    \chemfig{%
+%      \chemabove{\vphantom{X}}{\ominus}-[::30]=_[::-60]
+%      \chemabove{X}{\scriptstyle\oplus}}
+%    \schemestop    
+%    \chemmove{%
+%      \draw(db).. controls +(100:5mm) and +(145:5mm).. (a1);
+%    }
+%  \end{lstlisting}\\
+%  \hline
+%\end{tabular}
+%
+%
+%
+%\begin{tabular}{|c|}\hline
+%  \vphantom{\rule{0.4pt}{5ex}}
+%  \schemestart
+%  \chemfig{H_2@{ac}C=[@{ed}]CH-[@{es}]@{af}\charge{90=\|,-90=\|,0=\|}{F\,}}
+%  \arrow{<->}
+%  \schemestop
+%  \\[2ex]
+%  \hline
+%\end{tabular}
+%
+%
+%\schemestart
+%\chemfig{H_2@{ac}C=[@{ed}]CH-[@{es}]@{af}\charge{90=\|,-90=\|,0=\|}{F\,}}
+%\arrow{<->}
+%\schemestop
+%\chemmove[shorten <=2pt]{%
+%  \draw[Red,->] (af) -- (es);
+%}
 
 
 
