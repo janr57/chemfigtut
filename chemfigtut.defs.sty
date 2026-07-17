@@ -12,15 +12,17 @@
 %\newcommand{\badCode}{red!70!black}
 \colorlet{resaltadored}{red!90!black}
 \colorlet{resaltadogreen}{green!60!black}
+\colorlet{resaltadoblue}{green!60!black}
 
 % -----------------------------------------------------------------------------
 % FUENTE MONOESPACIADA SOURCE CODE PRO
 % Código normal: usa \texttt{...}
 % Código con peso intermedio (Medium), mantiene el color negro estándar
 \newcommand{\ttmed}[1]{{\ttfamily\fontseries{m}\selectfont #1}}
-% Código resaltado: Cambia la fuente a mono, aplica SemiBold y tiñe de rojo
+% Código resaltado: Cambia la fuente a mono, aplica SemiBold y tiñe de rojo, verde y azul
 \newcommand{\ttres}[1]{{\textbf{\ttfamily\color{resaltadored}#1}}}
 \newcommand{\ttresg}[1]{{\textbf{\ttfamily\color{resaltadogreen}#1}}}
+\newcommand{\ttresb}[1]{{\textbf{\ttfamily\color{resaltadoblue}#1}}}
 % Código erróneo: En rojo, grosor normal:
 \newcommand{\ttbad}[1]{\texttt{\color{Red}#1}}
 

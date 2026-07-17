@@ -2706,7 +2706,7 @@ utilizan para generar el efecto deseado.
 Vamos a describir este comando que se utiliza para incluir en los átomos de las fórmulas,
 determinados elementos, como cargas, electrones sin compartir, y otros.
 
-Empezaremos describiendo el comando en general:
+Empezaremos describiendo la macro:
 \begin{center}
   {\small
     \texttt{\textbackslash charge{[<parámetros generales>]<posición>[<código tikz>]=<carga>}{<átomo>}}
@@ -2720,25 +2720,24 @@ Descripción de las diferentes parámetros:
 
 \item \texttt{<carga>}: Cualquier elemento arbitrario que rodea a los átomos, con pocas
   restricciones. Puede ser un texto, incluso en modo matemático, código \textsf{TikZ}, o
-  incluso una molécula \texttt{\textbackslash chemconfig}.
+  incluso una molécula dibujada con \texttt{\textbackslash chemfig}.
 
-\item \texttt{<parámetros opcionales>}: Pares \emph{clave}/\emph{valor} que que usarán
-  al utilizar esa macro.
+\item \texttt{<código tikz>}: Código \textsf{TikZ} que se aplica a la \emph{carga}.
 
 \item \texttt{<posición>}: Valores \texttt{ángulo:<desplazamiento>}, donde
   \texttt{desplazamiento} es opcional, su valor por defecto es \texttt{0pt}.
 
-\item \texttt{<código tikz>}: Código que se aplica a la \emph{carga}.
+  El \texttt{ángulo} indica la posición de la carga respecto de la caja. Se puede
+  expresar en grados o como una posición respecto de la caja, al estilo de \textsf{TikZ},
+  como "south east". El \texttt{desplazamiento} es una dimensión \TeX y representa la
+  longitud adicional entre el centro de la caja del átomo y la carga, a menos que
+  se indique otra cosa en \texttt{código tikz}.
+  
+\item \texttt{<parámetros generales>}: Pares \emph{clave}/\emph{valor}, que se describen
+  en el siguiente apartado.
 \end{itemize}
-
-El \texttt{ángulo} indica la posición de la carga respecto de la caja. Se puede
-expresar en grados o como una posición respecto de la caja, al estilo de \textsf{TikZ},
-como "south east". El \texttt{desplazamiento} es una dimensión \TeX y representa la
-longitud adicional entre la caja del átomo y la carga, que a menos que se indique otra
-cosa en \texttt{código tikz}, sería el centro de la carga.
-
-
-\subsection{Parámetros}
+  
+\subsection{Parámetros generales}
 
 {\small
 \begin{center}
@@ -2749,7 +2748,7 @@ cosa en \texttt{código tikz}, sería el centro de la carga.
     & \texttt{true}
     & Booleano, que cuando es \texttt{true}, representa en\\&&
       diferentes colores los elementos. En verde\\&&
-      los átomos; en azul, las cajas, y la carga en rojo\\
+      los átomos; en azul, las cajas, y las cargas en rojo\\
     \texttt{\color{Blue}{macro atom}}
     & \texttt{\textbackslash printatom}
     & Macro que recibe el \texttt{<átomo>} como argumento\\
@@ -2805,12 +2804,12 @@ cosa en \texttt{código tikz}, sería el centro de la carga.
 }
 
 \vspace{-5ex}
-Es posible fijar algunos de los valores anteriores mediante:
+Además de en \texttt{\textbackslash charge}, se pueden fijar algunos valores mediante:
 \begin{center}
   \texttt{\textbackslash setcharge\{<clave>=<valor>\}}
 \end{center}
 
-En cualquier momento se pueden restaurar los valores por defecto mediante
+Los valores por defecto se pueden restaurar en cualquier momento utilizando:
 \begin{center}
   \texttt{\textbackslash resetcharge}
 \end{center}
@@ -2856,7 +2855,6 @@ Se puede aumentar la distancia para un par de puntos concreto de una fórmula:
   \hline
 \end{tabular}
 
-
 \vspace{1ex}
 Se puede controlar individualmente el radio de los puntos:
 
@@ -2880,9 +2878,11 @@ Se puede controlar individualmente el radio de los puntos:
 
 \vspace{1ex}
 El control puede ser para todos los pares de puntos de la fórmula, utilizando
-\texttt{\textbackslash setcharge\{...\}}, recordando que se puede revertir a la
-configuración de \texttt{\textbackslash charge} por defecto de \textsf{chemfig}
-utilizando después \texttt{\textbackslash resetcharge}:
+\begin{center}
+  \texttt{\textbackslash setcharge\{...\}}
+\end{center}
+recordando que se puede revertir a la configuración de \texttt{\textbackslash charge} por
+defecto de \textsf{chemfig} utilizando después \texttt{\textbackslash resetcharge}:
 
 \setcharge{.radius=0.10ex}
 \begin{tabular}{|c|}\hline
@@ -2913,8 +2913,8 @@ utilizando después \texttt{\textbackslash resetcharge}:
 \resetcharge
 
 \vspace{1ex}
-Pares de electrones solitarios representados por una línea, según los valore por
-defecto de \texttt{\textbackslash charge} en \texsf{chemfig}:
+Pares de electrones solitarios representados por una línea, según los valores por
+defecto de \texttt{\textbackslash charge} en \textsf{chemfig}:
 
 \begin{tabular}{|c|c|}\hline
   \vphantom{\rule{0.1pt}{3ex}}
@@ -2970,7 +2970,7 @@ Ahora lo hacemos para toda la molécula:
 \resetcharge
 
 \vspace{1ex}
-Como último ejemplo veremos otra forma de representar un par de electrones solitarios:
+En este ejemplo veremos otra forma de representar un par de electrones solitarios:
 
 \setcharge{|style={draw=red,line width=1.1pt}}
 \begin{tabular}{|c|c|}\hline
@@ -3005,14 +3005,105 @@ Por ejemplo, podemos rellenar el rectángulo de rojo:
 \end{tabular}
 \resetcharge
 
+\vspace{1ex}
+Para terminar este apartado se hace constar que hay dos formas de controlar la distancia
+de la carga al átomo:
+\begin{itemize}
+\item \texttt{extra sep}: es una distancia que se aplica a todas las cargas que
+  pueden rodear a un átomo concreto. Se puede utilizar siempre que resuelva todas
+  las posibles cargas que rodean a un átomo concreto.
+\item \texttt{ángulo:desplazamiento}: el desplazamiento indica una distancia adicional
+  a la anterior que afecta a una carga concreta de todas las que podrían rodear a un
+  átomo. Normalmente esta es la que suele utilizarse.
+\end{itemize}
 
-%\begin{tabular}{|c|c|}\hline
+\section{Diagramas de Lewis}
+Ahora aplicamos la macro \texttt{\textbackslash charge} para representar diferentes
+estructuras de Lewis. Recordamos que la estructura de Lewis de un átomo indica el
+número de electrones externos que rodean al átomo y su carga.
+
+Empezamos con la estructura de Lewis de elementos químicos. Por esta razón no es
+necesario utilizar el comando \texttt{\textbackslash chemfig}; es suficiente
+\texttt{\textbackslash charge}. En el primer ejemplo mostramos el comando completo,
+y en los restantes lo evitamos para abreviar la longitud el código.
+
+Empezamos con el átomo de nitrógeno, que tiene en su estado fundamental, cinco de
+electrones de valencia, un par de electrones apareado y tres desapareados.
+En este caso se ha utilizado el parámetro general \texttt{extra sep}, que sirve
+para todos los electrones (\emph{cargas} en el argot de \textsf{chemfig}
+y no se ha necesitado ajustar ninguna de las cargas individualmente:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{4ex}}
+  \charge{[extra sep=3pt]180=\:,90=\.,-90=\.,0=\.}{N}\\[1ex]
+  \texttt{\textbackslash charge\{\textcolor{blue}{[extra sep=3pt]}180=\textbackslash:,90=\textbackslash.,-90=\textbackslash.,0=\textbackslash.\}\{N\}}\\[0.7ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+En este ejemplo separamos los parámetros generales del resto de opciones de la macro
+\texttt{\textbackslash charge}:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{4ex}}
+  \charge{[extra sep=3pt,|style={line  width=1.1pt}]180=\|,90=\.,-90=\.,0=\.}{N}\\[0.5ex]
+  {\footnotesize\texttt{\{\textcolor{blue}{[extra sep=3pt,|style=\{line width=1.1pt\}]}180=\textbackslash|,90=\textbackslash.,-90=\textbackslash.,0=\textbackslash.\}\{N\}\}}}
+\\[0.7ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Sodio y catión sodio:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{3ex}}
+  \charge{[extra sep=3pt]0=\.}{Na}\\[0.5ex]
+  \texttt{\{\textcolor{blue}{[extra sep=3pt]}0=\textbackslash.\}\{Na\}\}}
+  \\[0.7ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{3.5ex}}
+  \charge{[extra sep=0pt]30:3pt={$+$}}{Na}\\[0.5ex]
+  \texttt{\{\textcolor{blue}{[extra sep=0pt]}30:3pt=\$+\$\}\{Na\}\}}\\[0.7ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Azufre y anión sulfuro:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{4ex}}
+  \charge{[extra sep=3pt,|style={line width=1.1pt}]90=\|,-90=\|,180=\.,0=\.}{S}\\[0.5ex]
+  {\footnotesize\texttt{\{{\color{blue}{[extra sep=3pt,|style=\{line width=1.1pt\}]}}90=\textbackslash|,-90=\textbackslash|,180=\textbackslash.,0=\textbackslash.\}\{S\}\}\}}}\\[0.7ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{4.5ex}}
+  \charge{[extra sep=2pt,|style={line width=1.1pt}]
+  0=\|,90=\|,-90=\|,180=\|,30:12pt={$2-$}}{S}\\[0.5ex]
+  {\scriptsize\texttt{\{\textcolor{blue}{[extra sep=2pt,|style=\{line width=1.1pt\}]}0=\textbackslash|,90=\textbackslash|,-90=\textbackslash|,180=\textbackslash\,30:12pt=\{\$2-\$\}\}\}\{S\}\}}}\\[0.7ex]
+  \hline
+\end{tabular}
+
+
+
+
+
+
+
+
+
+
+
+
+%\begin{tabular}{|c|}\hline
 %  \vphantom{\rule{0.1pt}{3ex}}
-%  {\large\chemfig{\chargeline{{90:2pt}{N}H_3}}}
-%  & {\large\chemfig{\charge{180:2pt=\|}{N}H_3}}\\
-%  \texttt{\{\textbackslash charge\ttres{\{90:2pt=\textbackslash:\}\{N\}}H\_3\}}
-%  & \texttt{\{\textbackslash charge\ttres{\{180:1.5pt=\textbackslash:\}\{N\}}H\_3\}}
-%  \\[1.4ex]
+%  {\large\chemfig{\charge{180:2pt=\|}{N}H_3}}\\
+%  \texttt{\{\textbackslash charge\ttres{\{180:1.5pt=\textbackslash:\}\{N\}}H\_3\}}
+%  \\[1.0ex]
 %  \hline
 %\end{tabular}
 
