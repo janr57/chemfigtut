@@ -3022,6 +3022,7 @@ Ahora aplicamos la macro \texttt{\textbackslash charge} para representar diferen
 estructuras de Lewis. Recordamos que la estructura de Lewis de un átomo indica el
 número de electrones externos que rodean al átomo y su carga.
 
+\subsection{Átomos}
 Empezamos con la estructura de Lewis de elementos químicos. Por esta razón no es
 necesario utilizar el comando \texttt{\textbackslash chemfig}; es suficiente
 \texttt{\textbackslash charge}. En el primer ejemplo mostramos el comando completo,
@@ -3089,17 +3090,95 @@ Azufre y anión sulfuro:
 \end{tabular}
 
 
-\chemfig{
-    \Charge{135=\:, 225=\:, 0[anchor=180]=\:\hspace{1pt}\:}{O}
-    \hspace{1.8pt}
-    \Charge{45=\:, 315=\:}{O}
-}
+\subsection{Moléculas diatómicas}
+
+\vspace{1ex}
+Molécula de oxígeno con diagrama de puntos.
+
+\vspace{1ex}
+Utilizando \texttt{\textbackslash Charge}:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{4ex}}
+  \chemfig{
+  \Charge{135=\:, 225=\:, 0[anchor=180]=\:\hspace{0.25em}\:}{O}
+  \hspace{0.15em}
+  \Charge{45=\:, 315=\:}{O}
+  }
+  \\[0.5ex]
+  \begin{lstlisting}[basicstyle=\ttfamily\footnotesize,language=TeX]
+    \chemfig{
+      \Charge{135=\:, 225=\:, 0[anchor=180]=\:\hspace{0.25em}\:}{O}
+      \hspace{0.15em}
+      \Charge{45=\:, 315=\:}{O}
+    }
+  \end{lstlisting}
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+Utilizando \texttt{\textbackslash charge}:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{4ex}}
+  \chemfig{
+  \charge{135=\:, 225=\:, 0=\:}{O}
+  \hspace{1.0em}
+  \charge{180=\:, 45=\:, 315=\:}{O}
+  }
+  \\[0.5ex]
+  \begin{lstlisting}[basicstyle=\ttfamily\footnotesize,language=TeX]
+    \chemfig{
+      \charge{135=\:, 225=\:, 0[anchor=180]=\:\hspace{0.25em}\:}{O}
+      \hspace{0.90em}
+      \charge{45=\:, 315=\:}{O}
+    }
+  \end{lstlisting}
+  \\\hline
+\end{tabular}
 
 
 
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{4ex}}
+  \chemfig{
+  \charge{135=\:, 225=\:, 0[anchor=180]=\:\hspace{0.25em}}{O}
+  \hspace{0.8em}
+  \charge{180=\:, 45=\:, 315=\:}{O}
+  }
+  \\[0.5ex]
+  \begin{lstlisting}[basicstyle=\ttfamily\footnotesize,language=TeX]
+    \chemfig{
+      \charge{135=\:, 225=\:}{O}
+      \hspace{0.90em}
+      \charge{45=\:, 315=\:}{O}
+    }
+  \end{lstlisting}
+  \\\hline
+\end{tabular}
 
 
 
+\vspace{1ex}
+Diagrama de líneas:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{4ex}}
+  \chemfig{
+  \charge{135=\:, 225=\:, 0[anchor=180]=\:\hspace{0.25em}\:}{O}
+  \hspace{0.90em}
+  \charge{45=\:, 315=\:}{O}
+  }
+  \\[0.5ex]
+  \begin{lstlisting}[basicstyle=\ttfamily\footnotesize,language=TeX]
+    \chemfig{
+      \charge{135=\:, 225=\:, 0[anchor=180]=\:\hspace{0.25em}\:}{O}
+      \hspace{0.90em}
+      \charge{45=\:, 315=\:}{O}
+    }
+  \end{lstlisting}
+  \\\hline
+\end{tabular}
 
 
 
