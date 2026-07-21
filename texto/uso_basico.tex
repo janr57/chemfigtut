@@ -3091,6 +3091,98 @@ Azufre y anión sulfuro:
 
 
 \subsection{Moléculas diatómicas}
+Molécula de hidrógeno con diagrama de puntos.
+
+\vspace{1ex}
+Utilizando \texttt{\textbackslash Charge}:
+
+\begin{tabular}{|c|@{\hspace{-0.9em}}c|}\hline
+  \vphantom{\rule{0.1pt}{3.1ex}}
+  \chemfig{\Charge{0[anchor=180]=\:}{H}\hspace{0.15em}{H}}
+  & \begin{lstlisting}[basicstyle=\ttfamily\small,language=TeX]
+    \chemfig{\Charge{0[anchor=180]=\:}{H}\hspace{0.15em}{H}}
+  \end{lstlisting}\\[0.5ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Utilizando \texttt{\textbackslash charge}:
+
+\begin{tabular}{|c|@{\hspace{-0.9em}}c|}\hline
+  \vphantom{\rule{0.1pt}{3.1ex}}
+  \chemfig{\charge{0[anchor=180]=\:}{H}\hspace{0.45em}{H}}
+  & \begin{lstlisting}[basicstyle=\ttfamily\small,language=TeX]
+    \chemfig{\charge{0[anchor=180]=\:}{H}\hspace{0.45em}{H}}
+  \end{lstlisting}\\[0.5ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Diagrama de rayas:
+
+\begin{tabular}{|c|@{\hspace{-0.9em}}c|}\hline
+  \vphantom{\rule{0.1pt}{3.1ex}}
+  \chemfig[atom sep=1.8em]{H-H}
+  & \begin{lstlisting}[basicstyle=\ttfamily\small,language=TeX]
+    \chemfig[atomsep=1.8em]{H-H}
+    \end{lstlisting}\\[0.5ex]
+  \hline
+\end{tabular}
+
+\vspace{1ex}
+Molécula de nitrógeno con diagrama de puntos.
+
+\vspace{1ex}
+Utilizando \texttt{\textbackslash Charge}:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{3.1ex}}
+  \chemfig{%
+  \Charge{[extra sep=0.4ex]
+  180=\:,0[anchor=180]=\:\hspace{0.5ex}\:\hspace{0.5ex}\:}{N}
+  \hspace{0.15em}
+  \Charge{[extra sep=0.4ex]0=\:}{N}
+  }\\[0.7ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|@{\hspace{-0.7em}}c|}\hline
+  \vphantom{\rule{0.1pt}{3.1ex}}
+  \begin{lstlisting}[basicstyle=\ttfamily\small]
+  \chemfig{%
+    \Charge{[extra sep=0.4ex]
+      180=\:,0[anchor=180]=\:\hspace{0.5ex}\:\hspace{0.5ex}\:}{N}
+    \hspace{0.15em}
+    \Charge{[extra sep=0.4ex]0=\:}{N}
+  }
+  \end{lstlisting}
+  \\[0.7ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{3.1ex}}
+  \chemfig{%
+  \charge{[extra sep=0.4ex]180=\:,0[anchor=180]=\:\hspace{0.25em}\:\hspace{0.25em}\:}{N}
+  \hspace{1.3em}
+  \charge{[extra sep=0.4ex]0=\:}{N}
+  }\\[0.7ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|@{\hspace{-0.7em}}c|}\hline
+  \vphantom{\rule{0.1pt}{3.1ex}}
+  \begin{lstlisting}[basicstyle=\ttfamily\small]
+  \chemfig{%
+    \charge{[extra sep=0.4ex]
+      180=\:,0[anchor=180]=\:\hspace{0.5ex}\:\hspace{0.5ex}\:}{N}
+    \hspace{1.3em}
+    \charge{[extra sep=0.4ex]0=\:}{N}
+  }
+  \end{lstlisting}
+  \\[0.7ex]
+  \hline
+\end{tabular}
 
 \vspace{1ex}
 Molécula de oxígeno con diagrama de puntos.
@@ -3098,19 +3190,26 @@ Molécula de oxígeno con diagrama de puntos.
 \vspace{1ex}
 Utilizando \texttt{\textbackslash Charge}:
 
-\begin{tabular}{|c|}\hline
+\begin{tabular}{|c|c|}\hline
   \vphantom{\rule{0.1pt}{3.1ex}}
-  \chemfig{
+  \chemfig{%
   \Charge{135=\:, 225=\:, 0[anchor=180]=\:\hspace{0.25em}\:}{O}
   \hspace{0.15em}
   \Charge{45=\:, 315=\:}{O}
-  }\\[0.7ex]
-  \hline
+  }
+  & \begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
+    \chemfig{%
+      \Charge{135=\:, 225=\:, 0[anchor=180]=\:\hspace{0.25em}\:}{O}
+      \hspace{0.15em}
+      \Charge{45=\:, 315=\:}{O}
+    }
+  \end{lstlisting}\\
+    \hline
 \end{tabular}
 
 \begin{tabular}{|@{\hspace{-0.9em}}c|}\hline
   \vphantom{\rule{0.1pt}{4ex}}
-  \begin{lstlisting}[basicstyle=\ttfamily\footnotesize,language=TeX]
+  \begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
     \chemfig{
       \Charge{135=\:, 225=\:, 0[anchor=180]=\:\hspace{0.25em}\:}{O}
       \hspace{0.15em}
