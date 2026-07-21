@@ -1544,7 +1544,7 @@ Así, modificamos el ángulo absoluto (el primero) \qty{45}{\degree}:
 En el siguiente ejemplo, las longitudes de enlace quedan algo diferentes:
 
 \begin{tabular}{|c|}\hline
-  \vphantom{\rule{0.4pt}{3ex}}
+  \vphantom{\rule{0.4pt}{2.5ex}}
   \chemfig{CH_3-CO-O-CO-CH_3}\\
   \vphantom{\rule{0.4pt}{1ex}}
   \texttt{%
@@ -1557,7 +1557,7 @@ En el siguiente ejemplo, las longitudes de enlace quedan algo diferentes:
 Se puede arreglar mediante \texttt{atom sep} y \texttt{fixed length=true}:
 
 \begin{tabular}{|c|}\hline
-  \vphantom{\rule{0.4pt}{3ex}}
+  \vphantom{\rule{0.4pt}{2.5ex}}
   \chemfig[atom sep=1em,fixed length]{CH_3-CO-O-CO-CH_3}\\
   \vphantom{\rule{0.4pt}{1ex}}
   \texttt{%
@@ -3099,13 +3099,17 @@ Molécula de oxígeno con diagrama de puntos.
 Utilizando \texttt{\textbackslash Charge}:
 
 \begin{tabular}{|c|}\hline
-  \vphantom{\rule{0.1pt}{4ex}}
+  \vphantom{\rule{0.1pt}{3.1ex}}
   \chemfig{
   \Charge{135=\:, 225=\:, 0[anchor=180]=\:\hspace{0.25em}\:}{O}
   \hspace{0.15em}
   \Charge{45=\:, 315=\:}{O}
-  }
-  \\[0.5ex]
+  }\\[0.7ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|@{\hspace{-0.9em}}c|}\hline
+  \vphantom{\rule{0.1pt}{4ex}}
   \begin{lstlisting}[basicstyle=\ttfamily\footnotesize,language=TeX]
     \chemfig{
       \Charge{135=\:, 225=\:, 0[anchor=180]=\:\hspace{0.25em}\:}{O}
@@ -3120,65 +3124,52 @@ Utilizando \texttt{\textbackslash Charge}:
 Utilizando \texttt{\textbackslash charge}:
 
 \begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{3.1ex}}
+  \chemfig{%
+  \charge{135=\:, 225=\:, 0[anchor=180]=\:\hspace{0.25em}\:}{O}
+  \hspace{0.9em}
+  \charge{45=\:, 315=\:}{O}
+  }\\[0.8ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|@{\hspace{-0.9em}}c|}\hline
   \vphantom{\rule{0.1pt}{4ex}}
-  \chemfig{
-  \charge{135=\:, 225=\:, 0=\:}{O}
-  \hspace{1.0em}
-  \charge{180=\:, 45=\:, 315=\:}{O}
-  }
-  \\[0.5ex]
   \begin{lstlisting}[basicstyle=\ttfamily\footnotesize,language=TeX]
     \chemfig{
-      \charge{135=\:, 225=\:, 0[anchor=180]=\:\hspace{0.25em}\:}{O}
-      \hspace{0.90em}
-      \charge{45=\:, 315=\:}{O}
+      \charge{[circle]135=\:,225=\:, 0[anchor=180]=\:\hspace{0.25em}\:}{O}
+      \hspace{0.9em}
+      \charge{[circle]45=\:,315=\:}{O}
     }
   \end{lstlisting}
   \\\hline
 \end{tabular}
-
-
-
-\begin{tabular}{|c|}\hline
-  \vphantom{\rule{0.1pt}{4ex}}
-  \chemfig{
-  \charge{135=\:, 225=\:, 0[anchor=180]=\:\hspace{0.25em}}{O}
-  \hspace{0.8em}
-  \charge{180=\:, 45=\:, 315=\:}{O}
-  }
-  \\[0.5ex]
-  \begin{lstlisting}[basicstyle=\ttfamily\footnotesize,language=TeX]
-    \chemfig{
-      \charge{135=\:, 225=\:}{O}
-      \hspace{0.90em}
-      \charge{45=\:, 315=\:}{O}
-    }
-  \end{lstlisting}
-  \\\hline
-\end{tabular}
-
-
 
 \vspace{1ex}
 Diagrama de líneas:
 
 \begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{3.1ex}}
+  \chemfig[atom sep=1.8em]{%
+  \charge{[|style={line width=0.20ex}]135=\|,225=\|}{O}
+  =
+  \charge{[|style={line width=0.20ex}]45=\|,315=\|}{O}
+  }\\[0.8ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|@{\hspace{-0.9em}}c|}\hline
   \vphantom{\rule{0.1pt}{4ex}}
-  \chemfig{
-  \charge{135=\:, 225=\:, 0[anchor=180]=\:\hspace{0.25em}\:}{O}
-  \hspace{0.90em}
-  \charge{45=\:, 315=\:}{O}
-  }
-  \\[0.5ex]
-  \begin{lstlisting}[basicstyle=\ttfamily\footnotesize,language=TeX]
-    \chemfig{
-      \charge{135=\:, 225=\:, 0[anchor=180]=\:\hspace{0.25em}\:}{O}
-      \hspace{0.90em}
-      \charge{45=\:, 315=\:}{O}
+  \begin{lstlisting}
+    \chemfig[atom sep=1.8em]{%
+      \charge{[|style={line width=0.20ex}]135=\|,225=\|}{O}
+      =
+      \charge{[|style={line width=0.20ex}]45=\|,315=\|}{O}
     }
   \end{lstlisting}
   \\\hline
 \end{tabular}
+
 
 
 
