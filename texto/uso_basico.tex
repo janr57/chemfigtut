@@ -3160,6 +3160,9 @@ Utilizando \texttt{\textbackslash Charge}:
   \hline
 \end{tabular}
 
+\vspace{1ex}
+Utilizando \texttt{\textbackslash charge}:
+
 \begin{tabular}{|c|}\hline
   \vphantom{\rule{0.1pt}{3.1ex}}
   \chemfig{%
@@ -3175,7 +3178,7 @@ Utilizando \texttt{\textbackslash Charge}:
   \begin{lstlisting}[basicstyle=\ttfamily\small]
   \chemfig{%
     \charge{[extra sep=0.4ex]
-      180=\:,0[anchor=180]=\:\hspace{0.5ex}\:\hspace{0.5ex}\:}{N}
+      180=\:,0[anchor=180]=\:\hspace{0.26em}\:\hspace{0.25em}\:}{N}
     \hspace{1.3em}
     \charge{[extra sep=0.4ex]0=\:}{N}
   }
@@ -3183,6 +3186,32 @@ Utilizando \texttt{\textbackslash Charge}:
   \\[0.7ex]
   \hline
 \end{tabular}
+
+\vspace{1ex}
+Diagrama de líneas:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{3.1ex}}
+  \chemfig{%
+  \charge{[extra sep=0.4ex,line width=0.20ex]180=\|}{N}
+  ~
+  \charge{[extra sep=0.4ex,line width=0.20ex]0=\|}{N}
+  }\\[0.7ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|@{\hspace{-0.7em}}c|}\hline
+  \vphantom{\rule{0.1pt}{3.1ex}}
+  \begin{lstlisting}[basicstyle=\ttfamily\small]
+  \chemfig{%
+  \charge{[extra sep=0.4ex,line width=0.20ex]180=\|}{N}
+  ~
+  \charge{[extra sep=0.4ex,line width=0.20ex]0=\|}{N}
+  \end{lstlisting}
+  \\[0.7ex]
+  \hline
+\end{tabular}
+
 
 \vspace{1ex}
 Molécula de oxígeno con diagrama de puntos.
@@ -3265,6 +3294,123 @@ Diagrama de líneas:
       =
       \charge{[|style={line width=0.20ex}]45=\|,315=\|}{O}
     }
+  \end{lstlisting}
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+Molécula de cloro con diagrama de puntos.
+
+\vspace{1ex}
+Utilizando \texttt{\textbackslash Charge}:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{3.1ex}}
+  \chemfig{%
+  \Charge{[extra sep=0.15em]90=\:,-90=\:,180=\:,0[anchor=180]=\:}{Cl}
+  \hspace{0.15em}
+  \Charge{[extra sep=0.15em]90=\:,-90=\:,0=\:}{Cl}
+  }\\[0.8ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|@{\hspace{-0.0em}}c|}\hline
+  \vphantom{\rule{0.1pt}{4ex}}
+  \begin{lstlisting}[basicstyle=\ttfamily\small]
+  \chemfig{%
+  \Charge{[extra sep=0.175em]90=\:,-90=\:,180=\:,0[anchor=180]=\:}{Cl}
+  \hspace{0.15em}
+  \Charge{[extra sep=0.175em]90=\:,-90=\:,0=\:}{Cl}
+  }
+  \end{lstlisting}
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+Utilizando \texttt{\textbackslash charge}:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{3.1ex}}
+  \chemfig{%
+  \charge{[extra sep=0.15em]90=\:,-90=\:,180=\:,0=\hspace{.1em}\:}{Cl}
+  \hspace{0.40em}
+  \charge{[extra sep=0.15em]90=\:,-90=\:,0=\:}{Cl}
+  }\\[0.8ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|@{\hspace{-0.0em}}c|}\hline
+  \vphantom{\rule{0.1pt}{4ex}}
+  \begin{lstlisting}[basicstyle=\ttfamily\small]
+  \chemfig{%
+  \charge{[extra sep=0.15em]90=\:,-90=\:,180=\:,0=\:}{Cl}
+  \hspace{0.30em}
+  \charge{[extra sep=0.15em]90=\:,-90=\:,0=\:}{Cl}
+  }
+  \end{lstlisting}
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+Diagrama de líneas y puntos:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{3.1ex}}
+  \chemfig{%
+  \charge{[extra sep=0.15em]90=\:,-90=\:,180=\:}{Cl}
+  -
+  \charge{[extra sep=0.15em]90=\:,-90=\:,0=\:}{Cl}
+  }\\[0.8ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|@{\hspace{-0.0em}}c|}\hline
+  \vphantom{\rule{0.1pt}{4ex}}
+  \begin{lstlisting}[basicstyle=\ttfamily\small]
+  \chemfig{%
+  \charge{[extra sep=0.15em]90=\:,-90=\:,180=\:}{Cl}
+  -
+  \charge{[extra sep=0.15em]90=\:,-90=\:,0=\:}{Cl}
+  }
+  \end{lstlisting}
+  \\\hline
+\end{tabular}
+
+\vspace{1ex}
+Diagrama de líneas:
+
+\begin{tabular}{|c|}\hline
+  \vphantom{\rule{0.1pt}{3.1ex}}
+  \chemfig{%
+  \charge{[extra sep=0.15em]90=\|,-90=\|,180=\|}{Cl}
+  -
+  \charge{[extra sep=0.15em]90=\|,-90=\|,0=\|}{Cl}
+  }\\[0.8ex]
+  \hline
+\end{tabular}
+
+\begin{tabular}{|@{\hspace{-0.0em}}c|}\hline
+  \vphantom{\rule{0.1pt}{4ex}}
+  \begin{lstlisting}[basicstyle=\ttfamily\small]
+  \chemfig{%
+  \charge{[extra sep=0.15em]90=\|,-90=\|,180=\|}{Cl}
+  -
+  \charge{[extra sep=0.15em]90=\|,-90=\|,0=\|}{Cl}
+  }
+  \end{lstlisting}
+  \\\hline
+\end{tabular}
+
+
+
+\begin{tabular}{|@{\hspace{-0.0em}}c|}\hline
+  \vphantom{\rule{0.1pt}{4ex}}
+  \begin{lstlisting}[basicstyle=\ttfamily\small]
+  \chemfig{%
+  \charge{[extra sep=0.15em]90=\:,-90=\:,180=\:,0=\:}{Cl}
+  \hspace{0.30em}
+  \charge{[extra sep=0.15em]90=\:,-90=\:,0=\:}{Cl}
+  }
   \end{lstlisting}
   \\\hline
 \end{tabular}
